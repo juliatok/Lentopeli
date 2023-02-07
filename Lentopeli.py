@@ -1,6 +1,6 @@
 print("Testi!")
 
-print("Tää toimii Wilmalla! c:")
+print("WILMAN MUUTOS JEE JEE")
 
 print("Toimii t. Petra")
 
