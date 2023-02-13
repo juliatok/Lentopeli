@@ -3,14 +3,19 @@ create database tietovisa;
 
 use tietovisa;
 
-create table maat(
-    ID      INT       	 	 not null,
-    Name    VARCHAR(64)     not null,
+CREATE TABLE maat(
+    ID      INT       	 	 NOT NULL,
+    Nimi    VARCHAR(64)     NOT NULL,
     PRIMARY KEY (ID)
 );
 
+CREATE TABLE käyttäjä(
+	ID				INT 				NOT NULL auto_increment,
+	Nimi			VARCHAR(60)		NOT NULL,				
+	PRIMARY KEY (ID)
+);
 
-insert into maat (ID, Name)
+insert into maat (ID, Nimi)
     VALUES (1, "Iso-Britannia"),
 	 (2, "Ranska"),
 	 (3, "Italia"),
@@ -41,5 +46,12 @@ insert into maat (ID, Name)
 	 (28, "Belgia"),
 	 (29, "Serbia"),
 	 (30, "Moldova");
+	 
+	 
+INSERT INTO käyttäjä (Nimi)
+	VALUES ("Petra"),
+	("Mia"),
+	("Wilma"),
+	("Julia");
 	 
 	 
