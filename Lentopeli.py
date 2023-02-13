@@ -1,10 +1,23 @@
-print("Testi!")
+syöte = 1
 
-print("WILMAN MUUTOS JEE JEE")
+def mainmenu():
+    print("Paina enter aloittaaksesi pelin.")
+    print("Paina 0 lopettaaksesi ohjelman")
+    syöte = input("->")
+    return syöte
+def username():
+    print("Anna käyttäjänimesi:")
+    käyttäjänimi = input("->")
+    return käyttäjänimi
+def maanvalinta():
+    print("Hei", käyttäjänimi, "Valitse kotimaasi:")
+    print("A. Suomi B. Ruotsi C. Tanska")
+    valinta = input("->")
+    return valinta
 
-print("Toimii t. Petra")
+mainmenu()
+while syöte != "0":
+    if syöte != "0":
+        käyttäjänimi = username()
+        maanvalinta()
 
-
-print("Jee toimii! t: Mia")
-
-print("tämä on testi 2")
