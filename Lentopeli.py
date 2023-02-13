@@ -46,6 +46,18 @@ def end():
     return valinta
 
 # PÄÄOHJELMA
+
+# YHTEYS MYSQL
+
+# yhteys = mysql.connector.connect(
+#          host='127.0.0.1',
+#          port= 3306,
+#          database='-',
+#          user='-',
+#          password='-',
+#          autocommit=True
+#          )
+
 while syöte != "0":
     mainmenu()
     käyttäjänimi = username()
