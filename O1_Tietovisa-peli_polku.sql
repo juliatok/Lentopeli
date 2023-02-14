@@ -1,21 +1,35 @@
 DROP DATABASE if EXISTS tietovisa;
-create database tietovisa;
+CREATE DATABASE tietovisa;
 
-use tietovisa;
+USE tietovisa;
+
+CREATE TABLE vastaukset(
+	ID 		INT				NOT NULL AUTO_INCREMENT,
+	kysymys 	VARCHAR (200)	,
+	oikein	VARCHAR (100)	,
+	väärin1 	VARCHAR (100)	,
+	väärin2 	VARCHAR (100)	,
+	PRIMARY KEY	(ID)
+);
 
 CREATE TABLE maat(
-    ID      INT       	 	 NOT NULL,
-    Nimi    VARCHAR(64)     NOT NULL,
-    PRIMARY KEY (ID)
+    ID      			INT       	 	NOT NULL,
+    Nimi    			VARCHAR(64)    NOT NULL,
+    vastaukset_id 	INT				,
+	 lentokenttä		VARCHAR (64)	,	
+    PRIMARY KEY (ID),
+    FOREIGN KEY (vastaukset_id) REFERENCES vastaukset (ID)
 );
 
 CREATE TABLE käyttäjä(
 	ID				INT 				NOT NULL auto_increment,
-	Nimi			VARCHAR(60)		NOT NULL,				
-	PRIMARY KEY (ID)
+	Nimi			VARCHAR(60)		NOT NULL,
+	paikka_id	INT 				,				
+	PRIMARY KEY (ID),
+	FOREIGN KEY (paikka_id) REFERENCES maat (ID)
 );
 
-insert into maat (ID, Nimi)
+INSERT INTO maat (ID, Nimi)
     VALUES (1, "Iso-Britannia"),
 	 (2, "Ranska"),
 	 (3, "Italia"),
@@ -53,5 +67,8 @@ INSERT INTO käyttäjä (Nimi)
 	("Mia"),
 	("Wilma"),
 	("Julia");
-	 
-	 
+	
+INSERT INTO vastaukset (kysymys, oikein, väärin1, väärin2)
+	VALUES ("Keskeisimpiä elementtejä Norjan maisemassa ovat:","Vuonot ja vuoret","Joet ja järvet","Metsät ja tunturit"),
+	("Norjan perustaja ja ensimmäinen kuningas oli:","Harald Kaunotukka","Pyhä Olavi","Eerik Verikirves");
+	
