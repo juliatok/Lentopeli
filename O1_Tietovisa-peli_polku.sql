@@ -3,30 +3,30 @@ CREATE DATABASE tietovisa;
 
 USE tietovisa;
 
-CREATE TABLE vastaukset(
-	ID 		INT				NOT NULL AUTO_INCREMENT,
-	kysymys 	VARCHAR (200)	,
-	oikein	VARCHAR (100)	,
-	väärin1 	VARCHAR (100)	,
-	väärin2 	VARCHAR (100)	,
-	PRIMARY KEY	(ID)
-);
-
 CREATE TABLE maat(
     ID      			INT       	 	NOT NULL,
     Nimi    			VARCHAR(64)    NOT NULL,
     vastaukset_id 	INT				,
 	 lentokenttä		VARCHAR (64)	,	
-    PRIMARY KEY (ID),
-    FOREIGN KEY (vastaukset_id) REFERENCES vastaukset (ID)
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE vastaukset(
+	ID 			INT				NOT NULL AUTO_INCREMENT,
+	paikka_id 	INT				,
+	kysymys 		VARCHAR (200)	,
+	oikein		VARCHAR (100)	,
+	väärin1 		VARCHAR (100)	,
+	väärin2 		VARCHAR (100)	,
+	PRIMARY KEY	(ID),
+	FOREIGN KEY (paikka_id) REFERENCES maat (ID)
 );
 
 CREATE TABLE käyttäjä(
 	ID				INT 				NOT NULL auto_increment,
 	Nimi			VARCHAR(60)		NOT NULL,
-	paikka_id	INT 				,				
-	PRIMARY KEY (ID),
-	FOREIGN KEY (paikka_id) REFERENCES maat (ID)
+	paikka		INT 				,				
+	PRIMARY KEY (ID)
 );
 
 INSERT INTO maat (ID, Nimi)
@@ -68,7 +68,8 @@ INSERT INTO käyttäjä (Nimi)
 	("Wilma"),
 	("Julia");
 	
-INSERT INTO vastaukset (kysymys, oikein, väärin1, väärin2)
-	VALUES ("Keskeisimpiä elementtejä Norjan maisemassa ovat:","Vuonot ja vuoret","Joet ja järvet","Metsät ja tunturit"),
-	("Norjan perustaja ja ensimmäinen kuningas oli:","Harald Kaunotukka","Pyhä Olavi","Eerik Verikirves");
+INSERT INTO vastaukset (paikka_id, kysymys, oikein, väärin1, väärin2)
+	VALUES (8,"Mikä on Ruotsin toiseksi suurin kaupunki?","Göteborg","Tukholma","Malmö"),
+	(15,"Keskeisimpiä elementtejä Norjan maisemassa ovat:","Vuonot ja vuoret","Joet ja järvet","Metsät ja tunturit"),
+	(15,"Norjan perustaja ja ensimmäinen kuningas oli:","Harald Kaunotukka","Pyhä Olavi","Eerik Verikirves");
 	
