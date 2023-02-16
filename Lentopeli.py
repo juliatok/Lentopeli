@@ -52,7 +52,7 @@ def end():
 # KOORDINAATTIEN HAKU
 
 # def hae_koordinaatit(airport_name):
-#    sql = "select latitude_deg, longitude_deg from airport where name = '" + name + "'"
+#    sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
 #    cursor = yhteys.cursor()
 #    cursor.execute(sql)
 #    result = cursor.fetchall()
@@ -89,9 +89,9 @@ while syöte != "0":
 # lentokenttä_2 = uusi lentokenttä, joka valittiin seuraavaksi matkakohteeksi
 # koordinaatit_1 = hae_koordinaatit(lentokenttä_1)
 # koordinaatit_2 = hae_koordinaatit(lentokenttä_2)
-# välimatka = laske_matka(koordinaatit_1, koordinaatit_2)
+# välimatka = laske_välimatka(koordinaatit_1, koordinaatit_2)
 # kuljettu_matka = + välimatka
-# print(f"Kulkemasi matkan pituus: {kuljettu_matka} km")
+# print(f"Kulkemasi matkan pituus: {kuljettu_matka:.0f} km")
 
     valinta = end()
     if valinta == "0":
