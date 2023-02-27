@@ -100,18 +100,18 @@ def end():
 
 # KOORDINAATTIEN HAKU
 
-# def hae_koordinaatit(airport_name):
-#    sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
-#    cursor = yhteys.cursor()
-#    cursor.execute(sql)
-#    result = cursor.fetchall()
-#    return result
+"""def hae_koordinaatit(airport_name):
+    sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return result"""
 
 # MATKAN PITUUDEN LASKEMINEN
 
-# def laske_välimatka(koordinaatit_1, koordinaatit_2):
-#    result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
-#    return result
+"""def laske_välimatka(koordinaatit_1, koordinaatit_2):
+    result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
+    return result"""
 
 
 # ______________________ PÄÄOHJELMA ______________________
@@ -122,7 +122,7 @@ yhteys = mysql.connector.connect(
          port= 3306,
          database='tietovisa',
          user='root',
-         password='salasana',
+         password='m!näk00d44n',
          autocommit=True
          )
 
