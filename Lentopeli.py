@@ -1,5 +1,6 @@
-# import mysql.connector
-# import geopy.distance
+import mysql.connector
+import geopy.distance
+import random
 
 syöte = 1
 pisteet = 300
@@ -24,7 +25,54 @@ def username():
     return käyttäjänimi
 
 # KOTIMAAN VALINTA
-def maanvalinta():
+def arvokenttä(): # ARPOO KOLME MAATA TIETOKANNASTA
+    kerrat = 0
+    arvotutmaat = []
+    while kerrat != 3:
+        numero = random.randint(1,30)
+        sql = "select Nimi from maat where ID = '" + str(numero) +"'"
+        #print(sql)
+        kursori = yhteys.cursor()
+        kursori.execute(sql)
+        tulos = kursori.fetchall()
+        for n in tulos:
+            if n not in arvotutmaat:
+                #print(n)
+                arvotutmaat.append(n)
+                kerrat = kerrat + 1
+    return arvotutmaat
+
+def maanvalinta(arvotutmaat):
+    kerrat = 1
+    print("Hei", käyttäjänimi, "Valitse kotimaasi:")
+    for n in arvotutmaat:
+        if kerrat == 1:
+            print("A.",', '.join(n))
+            kerrat = kerrat + 1
+            valinta1 = n
+        elif kerrat == 2:
+            print("B.",', '.join(n))
+            kerrat = kerrat + 1
+            valinta2 = n
+        else:
+            print("C.",', '.join(n))
+            kerrat = kerrat + 1
+            valinta3 = n
+    valinta = input("-> ")
+    while valinta != "A" and valinta != "B" and valinta != "C":
+        print("Virheellinen syöte! Valitse A, B tai C!")
+        valinta = input("-> ")
+    if valinta == "A":
+        print("Kotimaasi on", ', '.join(valinta1))
+        valinta = valinta1
+    elif valinta == "B":
+        print("Kotimaasi on", ', '.join(valinta2))
+        valinta = valinta2
+    else:
+        print("Kotimaasi on", ', '.join(valinta3))
+        valinta = valinta3
+    return valinta
+"""def maanvalinta():
     print("Hei", käyttäjänimi, "Valitse kotimaasi:")
     print("A. Suomi B. Ruotsi C. Tanska")
     valinta = input("-> ")
@@ -33,11 +81,12 @@ def maanvalinta():
         print("Valitse kotimaasi:")
         print("A. Suomi B. Ruotsi C. Tanska")
         valinta = input("-> ")
-    return valinta
+    return valinta"""
 
 # LOPPURUUTU
 def end():
     print("Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
+    print("Olet taas kotimaassasi", ', '.join(kotimaa))
     print("Sait", pisteet, "pistettä!")
     print("Paina 1 palataksesi päävalikkoon")
     print("Paina 0 lopettaaksesi ohjelman")
@@ -65,23 +114,23 @@ def end():
 #    return result
 
 
-# PÄÄOHJELMA
+# ______________________ PÄÄOHJELMA ______________________
 
 # YHTEYS MYSQL
-
-# yhteys = mysql.connector.connect(
-#          host='127.0.0.1',
-#          port= 3306,
-#          database='-',
-#          user='-',
-#          password='-',
-#          autocommit=True
-#          )
+yhteys = mysql.connector.connect(
+         host='localhost',
+         port= 3306,
+         database='tietovisa',
+         user='root',
+         password='salasana',
+         autocommit=True
+         )
 
 while syöte != "0":
-    mainmenu()
-    käyttäjänimi = username()
-    maanvalinta()
+    mainmenu()                          # ALOITUSRUUTU
+    käyttäjänimi = username()           # KÄYTTÄJÄNIMEN KYSYNTÄ
+    arvotutmaat = arvokenttä()          # ARPOO 3 MAATA
+    kotimaa = maanvalinta(arvotutmaat)  # KOTIMAAN VALINTA
 
 # LENTOMATKAN PITUUS (omaksi funktioksi?)
 
