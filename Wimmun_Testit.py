@@ -20,7 +20,8 @@ def arvokenttä(): # ARPOO KOLME MAATA TIETOKANNASTA
                 kerrat = kerrat + 1
     return arvotutmaat
 
-def maanvalinta(arvotutmaat):
+def maanvalinta():
+    arvotutmaat = arvokenttä()
     kerrat = 1
     print("Hei", käyttäjänimi, "Valitse kotimaasi:")
     for n in arvotutmaat:
@@ -60,6 +61,5 @@ yhteys = mysql.connector.connect(
          autocommit=True
          )
 
-arvotutmaat = arvokenttä()
-kotimaa = maanvalinta(arvotutmaat)
+kotimaa = maanvalinta()
 print(kotimaa)
