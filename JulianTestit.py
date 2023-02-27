@@ -30,3 +30,19 @@ koordinaatit_2 = hae_koordinaatit(lentokenttä_2)
 välimatka = laske_välimatka(koordinaatit_1, koordinaatit_2)
 kuljettu_matka = + välimatka
 print(f"Kulkemasi matkan pituus: {kuljettu_matka:.0f} km")
+
+# Hae VASTAUKSET TIETOKANNASTA:
+
+# maa = seuraava valittu maa
+
+# hae (random) kysymys 1 tai kysymys 2
+
+# anna vastausvaihtoehdot
+
+# käyttäjä syöttää vastauksen
+
+# kun vastaus indeksissä 0 - oikein
+# muuten väärin
+
+# (pisteet)
+# (seuraavat maa vaihtoehdot)
