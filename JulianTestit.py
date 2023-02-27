@@ -11,6 +11,8 @@ def hae_koordinaatit(airport_name):
     return result
 
 def laske_välimatka(koordinaatit_1, koordinaatit_2):
+    print(koordinaatit_1)
+    print(koordinaatit_2)
     result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
     return result
 
@@ -23,7 +25,7 @@ yhteys = mysql.connector.connect(
           autocommit=True
           )
 
-lentokenttä_1 = "Cambridge Airport"
+lentokenttä_1 = "Helsinki Vantaa Airport"
 lentokenttä_2 = "Stockholm Skavsta Airport"
 koordinaatit_1 = hae_koordinaatit(lentokenttä_1)
 koordinaatit_2 = hae_koordinaatit(lentokenttä_2)
