@@ -19,7 +19,7 @@ def mainmenu():
     return syöte
 
 # ______________________ KÄYTTÄJÄNIMI ______________________
-def käyttäjänimi():
+def käyttäjänimivalinta():
     print("Anna käyttäjänimesi:")
     käyttäjänimi = input("-> ")
     return käyttäjänimi
@@ -60,10 +60,10 @@ def kotimaanvalinta():
             print("C.",', '.join(n))
             kerrat = kerrat + 1
             valinta3 = n
-    valinta = input("-> ")
+    valinta = input("-> ").upper()
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
-        valinta = input("-> ")
+        valinta = input("-> ").upper()
     if valinta == "A":
         print("Kotimaasi on", ', '.join(valinta1))
         valinta = valinta1
@@ -122,7 +122,7 @@ def end():
 yhteys = mysql.connector.connect(
          host='localhost',
          port= 3306,
-         database='tietovisa',
+         database='flight_game',
          user='root',
          password='assiponi',
          autocommit=True
@@ -130,7 +130,7 @@ yhteys = mysql.connector.connect(
 
 while syöte != "0":
     mainmenu()                              # ALOITUSRUUTU
-    käyttäjänimi = käyttäjänimi()           # KÄYTTÄJÄNIMEN KYSYNTÄ
+    käyttäjänimi = käyttäjänimivalinta()    # KÄYTTÄJÄNIMEN KYSYNTÄ
     arvotutmaat = arvokolmemaata()          # ARPOO 3 MAATA
     kotimaa = kotimaanvalinta()             # KOTIMAAN VALINTA
     valinta = end()
