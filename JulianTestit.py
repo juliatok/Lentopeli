@@ -28,7 +28,7 @@ yhteys = mysql.connector.connect(
           )
 
 lentokenttä_1 = "Helsinki Vantaa Airport"
-lentokenttä_2 = "Heathrow Airport"
+lentokenttä_2 = "London Heathrow Airport"
 koordinaatit_1 = hae_koordinaatit(lentokenttä_1)
 koordinaatit_2 = hae_koordinaatit(lentokenttä_2)
 välimatka = laske_välimatka(koordinaatit_1, koordinaatit_2)
