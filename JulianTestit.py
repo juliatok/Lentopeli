@@ -11,6 +11,8 @@ def hae_koordinaatit(airport_name):
     return result
 
 def laske_välimatka(koordinaatit_1, koordinaatit_2):
+    print(koordinaatit_1)
+    print(koordinaatit_2)
     result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
     return result
 
