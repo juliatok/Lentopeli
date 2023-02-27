@@ -13,38 +13,46 @@ def hae_koordinaatit(airport_name):
 
 
 def laske_välimatka(koordinaatit1, koordinaatit2):
-    print(koordinaatit_1)
-    print(koordinaatit_2)
-    result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
-    return result
+    #    print(koordinaatit_1)
+    #    print(koordinaatit_2)
+    välimatka = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
+    print(f"Välimatka: {välimatka:.0f} km")
+    return välimatka
+
 
 yhteys = mysql.connector.connect(
-          host='127.0.0.1',
-          port= 3306,
-          database='flight_game',
-          user='root',
-          password='m!näk00d44n',
-          autocommit=True
-          )
+    host='127.0.0.1',
+    port=3306,
+    database='flight_game',
+    user='root',
+    password='m!näk00d44n',
+    autocommit=True
+)
 
 lentokenttä_1 = "Helsinki Vantaa Airport"
 lentokenttä_2 = "London Heathrow Airport"
 koordinaatit_1 = hae_koordinaatit(lentokenttä_1)
 koordinaatit_2 = hae_koordinaatit(lentokenttä_2)
 välimatka = laske_välimatka(koordinaatit_1, koordinaatit_2)
-print(f"Välimatka: {välimatka:.0f} km.")
-"""kuljettu_matka = + välimatka
-print(f"Kulkemasi matkan pituus: {kuljettu_matka:.0f} km")"""
+kuljettu_matka = + välimatka
+print(f"Kulkemasi matkan pituus yhteensä: {kuljettu_matka:.0f} km")
 
 # HAE VASTAUKSET TIETOKANNASTA:
 
+# def kysymykset(sijainti):
+#     sql = "select kysymys_1, kysymys_2 from kysymykset where maa = '" + sijainti + "'"
+#     cursor = yhteys.cursor()
+#     cursor.execute(sql)
+#     kysymykset = cursor.fetchall()
+#     return kysymykset
+
 # maa = seuraava valittu maa
 
-# hae (random) kysymys 1 tai kysymys 2
+# hae_kysymys = kysymykset(maa)
 
 # anna vastausvaihtoehdot (random järjestys - A), B), C))
 
-# käyttäjä syöttää vastauksen
+# käyttäjä syöttää vastauksens
 
 # jos väärin - virheellinen syöte
 
