@@ -29,6 +29,13 @@ CREATE TABLE käyttäjä(
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE pisteet( 
+	ID				INT				NOT NULL AUTO_INCREMENT,
+	pisteet_id	INT				,
+	PRIMARY KEY (ID)				,
+	FOREIGN KEY (pisteet_id) REFERENCES käyttäjä (ID)
+);	
+
 INSERT INTO maat (ID, Nimi, Maakoodi)
     VALUES (1, "Iso-Britannia","EN"),
 	 (2, "Ranska","FR"),
