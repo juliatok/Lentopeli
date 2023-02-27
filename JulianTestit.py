@@ -25,7 +25,7 @@ yhteys = mysql.connector.connect(
           autocommit=True
           )
 
-lentokenttä_1 = "Cambridge Airport"
+lentokenttä_1 = "Helsinki Vantaa Airport"
 lentokenttä_2 = "Stockholm Skavsta Airport"
 koordinaatit_1 = hae_koordinaatit(lentokenttä_1)
 koordinaatit_2 = hae_koordinaatit(lentokenttä_2)
