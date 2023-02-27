@@ -8,9 +8,23 @@ kuljettu_matka = 0
 
 # ______________________ ALOITUSRUUTU ______________________
 def mainmenu():
-    print("Paina enter aloittaaksesi pelin.")
-    print("Paina 0 lopettaaksesi ohjelman")
-    syöte = input("-> ")
+    print("__________________________________________________________________")
+    print("  ")
+    print("███████╗██╗░░░██╗██████╗░░█████╗░░█████╗░██████╗░██████╗░░█████╗░")
+    print("██╔════╝██║░░░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗")
+    print("█████╗░░██║░░░██║██████╔╝██║░░██║██║░░██║██████╔╝██████╔╝███████║")
+    print("██╔══╝░░██║░░░██║██╔══██╗██║░░██║██║░░██║██╔═══╝░██╔═══╝░██╔══██║")
+    print("███████╗╚██████╔╝██║░░██║╚█████╔╝╚█████╔╝██║░░░░░██║░░░░░██║░░██║")
+    print("╚══════╝░╚═════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚═╝")
+    print("████████╗██╗███████╗████████╗░█████╗░██╗░░░██╗██╗░██████╗░█████╗░")
+    print("╚══██╔══╝██║██╔════╝╚══██╔══╝██╔══██╗██║░░░██║██║██╔════╝██╔══██╗")
+    print("░░░██║░░░██║█████╗░░░░░██║░░░██║░░██║╚██╗░██╔╝██║╚█████╗░███████║")
+    print("░░░██║░░░██║██╔══╝░░░░░██║░░░██║░░██║░╚████╔╝░██║░╚═══██╗██╔══██║")
+    print("░░░██║░░░██║███████╗░░░██║░░░╚█████╔╝░░╚██╔╝░░██║██████╔╝██║░░██║")
+    print("░░░╚═╝░░░╚═╝╚══════╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝╚═════╝░╚═╝░░╚═╝")
+    print("          ALOITA PELI - ENTER            SULJE PELI - 0")
+    print("__________________________________________________________________")
+    syöte = input()
     while syöte != "" and syöte != 0:
         print("Virheellinen syöte!")
         print("Paina enter aloittaaksesi pelin.")
@@ -20,8 +34,9 @@ def mainmenu():
 
 # ______________________ KÄYTTÄJÄNIMI ______________________
 def käyttäjänimivalinta():
-    print("Anna käyttäjänimesi:")
+    print("   Anna käyttäjänimesi:")
     käyttäjänimi = input("-> ")
+    print("__________________________________________________________________")
     return käyttäjänimi
 
 # ______________________ ARPOO 3 MAATA ______________________
@@ -46,7 +61,7 @@ def arvokolmemaata(): # ARPOO KOLME MAATA TIETOKANNASTA
 def kotimaanvalinta():
     arvotutmaat = arvokolmemaata()
     kerrat = 1
-    print("Hei", käyttäjänimi, "Valitse kotimaasi:")
+    print("   Hei", käyttäjänimi, "Valitse kotimaasi:")
     for n in arvotutmaat:
         if kerrat == 1:
             print("A.",', '.join(n))
@@ -65,14 +80,15 @@ def kotimaanvalinta():
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
     if valinta == "A":
-        print("Kotimaasi on", ', '.join(valinta1))
+        print("   Kotimaasi on", ', '.join(valinta1))
         valinta = valinta1
     elif valinta == "B":
-        print("Kotimaasi on", ', '.join(valinta2))
+        print("   Kotimaasi on", ', '.join(valinta2))
         valinta = valinta2
     else:
-        print("Kotimaasi on", ', '.join(valinta3))
+        print("   Kotimaasi on", ', '.join(valinta3))
         valinta = valinta3
+    print("__________________________________________________________________")
     return valinta
 
 # ______________________ LOPPURUUTU ______________________
