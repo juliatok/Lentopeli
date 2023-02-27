@@ -1,7 +1,11 @@
-DROP DATABASE if EXISTS tietovisa;
-CREATE DATABASE tietovisa;
+# DROP DATABASE if EXISTS tietovisa;
+USE flight_game;
 
-USE tietovisa;
+DROP TABLE if EXISTS vastaukset;
+DROP TABLE if EXISTS pisteet;
+DROP TABLE if EXISTS maat;
+DROP TABLE if EXISTS käyttäjä;
+
 
 CREATE TABLE maat(
     ID      			INT       	 	NOT NULL,
