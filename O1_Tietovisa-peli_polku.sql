@@ -7,7 +7,7 @@ CREATE TABLE maat(
     ID      			INT       	 	NOT NULL,
     Nimi    			VARCHAR(64)    NOT NULL,
     vastaukset_id 	INT				,
-	 lentokenttä		VARCHAR (64)	,	
+	 Maakoodi			VARCHAR (2)		,	
     PRIMARY KEY (ID)
 );
 
@@ -29,37 +29,37 @@ CREATE TABLE käyttäjä(
 	PRIMARY KEY (ID)
 );
 
-INSERT INTO maat (ID, Nimi)
-    VALUES (1, "Iso-Britannia"),
-	 (2, "Ranska"),
-	 (3, "Italia"),
-	 (4, "Espanja"),
-	 (5, "Saksa"),
-	 (6, "Kreikka"),
-	 (7, "Suomi"),
-	 (8, "Ruotsi"),
-	 (9, "Romania"),
-	 (10, "Puola"),
-	 (11, "Bulgaria"),
-	 (12, "Slovenia"),
-	 (13, "Slovakia"),
-	 (14, "Itävalta"),
-	 (15, "Norja"),
-	 (16, "Viro"),
-	 (17, "Latvia"),
-	 (18, "Islanti"),
-	 (19, "Irlanti"),
-	 (20, "Portugali"),
-	 (21, "Alankomaat"),
-	 (22, "Ukraina"),
-	 (23, "Montenegro"),
-	 (24, "Kypros"),
-	 (25, "Malta"),
-	 (26, "Sveitsi"),
-	 (27, "Tsekki"),
-	 (28, "Belgia"),
-	 (29, "Serbia"),
-	 (30, "Moldova");
+INSERT INTO maat (ID, Nimi, Maakoodi)
+    VALUES (1, "Iso-Britannia","EN"),
+	 (2, "Ranska","FR"),
+	 (3, "Italia","IT"),
+	 (4, "Espanja","ES"),
+	 (5, "Saksa","DE"),
+	 (6, "Kreikka","GR"),
+	 (7, "Suomi","FI"),
+	 (8, "Ruotsi","SE"),
+	 (9, "Romania","RO"),
+	 (10, "Puola","PL"),
+	 (11, "Bulgaria","BG"),
+	 (12, "Slovenia","SI"),
+	 (13, "Slovakia","SK"),
+	 (14, "Itävalta","AT"),
+	 (15, "Norja","NO"),
+	 (16, "Viro","ES"),
+	 (17, "Latvia","LV"),
+	 (18, "Islanti","IS"),
+	 (19, "Irlanti","IE"),
+	 (20, "Portugali","PT"),
+	 (21, "Alankomaat","NL"),
+	 (22, "Ukraina","UA"),
+	 (23, "Montenegro","ME"),
+	 (24, "Kypros","CY"),
+	 (25, "Malta","MT"),
+	 (26, "Sveitsi","CH"),
+	 (27, "Tsekki","CZ"),
+	 (28, "Belgia","BE"),
+	 (29, "Serbia","RS"),
+	 (30, "Moldova","MD");
 	 
 	 
 INSERT INTO käyttäjä (Nimi)
@@ -69,7 +69,8 @@ INSERT INTO käyttäjä (Nimi)
 	("Julia");
 	
 INSERT INTO vastaukset (paikka_id, kysymys, oikein, väärin1, väärin2)
-	VALUES (8,"Mikä on Ruotsin toiseksi suurin kaupunki?","Göteborg","Tukholma","Malmö"),
+	VALUES (1,"Mikä on Britannian kansalliseläin?","Leijona","Kotka","Karhu"),
+	(8,"Mikä on Ruotsin toiseksi suurin kaupunki?","Göteborg","Tukholma","Malmö"),
 	(15,"Keskeisimpiä elementtejä Norjan maisemassa ovat:","Vuonot ja vuoret","Joet ja järvet","Metsät ja tunturit"),
 	(15,"Norjan perustaja ja ensimmäinen kuningas oli:","Harald Kaunotukka","Pyhä Olavi","Eerik Verikirves");
 	
