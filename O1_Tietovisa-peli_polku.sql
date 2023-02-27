@@ -139,4 +139,4 @@ INSERT INTO vastaukset (paikka_id, kysymys, oikein, väärin1, väärin2)
 	(29,"Mikä on Serbian väkiluku?","Noin 6,7 miljoonaa","Noin 7,4 miljoonaa","Noin 8,2 miljoonaa"),
 	(29,"Kuka on Serbian nykyinen presidentti?","Alexsandar Vucic","Novak Dokovic","Ana Brnabic"),
 	(30,"Kuinka korkea on Moldovan korkein kohta?","420 metriä","640 metriä","310 metriä"),
-	(30,"Mikä on Moldovan virallinen kieli?","Romania","Moldova","Unkari"); 
+	(30,"Mikä on Moldovan virallinen kieli?","Romanian kieli","Moldovan kieli","Unkarin kieli"); 
