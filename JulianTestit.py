@@ -31,17 +31,19 @@ välimatka = laske_välimatka(koordinaatit_1, koordinaatit_2)
 kuljettu_matka = + välimatka
 print(f"Kulkemasi matkan pituus: {kuljettu_matka:.0f} km")
 
-# Hae VASTAUKSET TIETOKANNASTA:
+# HAE VASTAUKSET TIETOKANNASTA:
 
 # maa = seuraava valittu maa
 
 # hae (random) kysymys 1 tai kysymys 2
 
-# anna vastausvaihtoehdot
+# anna vastausvaihtoehdot (random järjestys - A), B), C))
 
 # käyttäjä syöttää vastauksen
 
-# kun vastaus indeksissä 0 - oikein
+# jos väärin - virheellinen syöte
+
+# kun vastaus tietokannassa indeksissä 0 - oikein
 # muuten väärin
 
 # (pisteet)
