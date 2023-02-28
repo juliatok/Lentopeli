@@ -48,7 +48,8 @@ def kysymys(sijainti):
      cursor.execute(sql)
      kysymykset = cursor.fetchall()
      kysyttava_kysymys = random.choice(kysymykset)
-     return kysyttava_kysymys
+     for k in kysyttava_kysymys:
+         print(k)
 
 
 def vastaus_vaihtoehdot(sijainti):
@@ -59,18 +60,17 @@ def vastaus_vaihtoehdot(sijainti):
     print(vastausvaihtoehdot)
     return vastausvaihtoehdot
 
-def kysymys_vastausvaihtoehdot_pelaajalle(kysymys):
-    for k in kysymys:
-        print(k)
-        vastaukset = vastaus_vaihtoehdot(paikka_id)
-        for v in vastaukset:
-            print(v)
-        return
+def kysymys_vastausvaihtoehdot_pelaajalle(kysymys, vastaukset):
+    if kysymys == kysymys[0]:
+            print(vastaukset[0])
+    else:
+            print(vastaukset[1])
+    return
 
 while lennot < 1:
     paikka_id = "1"
     kysymys = kysymys(paikka_id)
-    pelaajalle = kysymys_vastausvaihtoehdot_pelaajalle(kysymys)
+    vastaukset = vastaus_vaihtoehdot(paikka_id)
     lennot = lennot + 1
 
 
