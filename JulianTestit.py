@@ -43,10 +43,11 @@ print(f"Kulkemasi matkan pituus yhteensä: {kuljettu_matka:.0f} km")"""
 lennot = 0
 
 def kysymys(sijainti):
-     sql = "select kysymys from vastaukset where paikka_id = '" + sijainti + "'"
+     sql = "select ID, kysymys from vastaukset where paikka_id = '" + sijainti + "'"
      cursor = yhteys.cursor()
      cursor.execute(sql)
      kysymykset = cursor.fetchall()
+     print(kysymykset)
      kysyttava_kysymys = random.choice(kysymykset)
      for k in kysyttava_kysymys:
          print(k)
