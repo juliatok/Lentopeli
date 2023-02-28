@@ -25,7 +25,7 @@ def mainmenu():
     print("          ALOITA PELI - ENTER            SULJE PELI - 0")
     print("__________________________________________________________________")
     syöte = input()
-    while syöte != "" and syöte != 0:
+    while syöte != "" and syöte != "0":
         print("Virheellinen syöte!")
         print("Paina enter aloittaaksesi pelin.")
         print("Paina 0 lopettaaksesi ohjelman")
@@ -34,7 +34,7 @@ def mainmenu():
 
 # ______________________ KÄYTTÄJÄNIMI ______________________
 def käyttäjänimivalinta():
-    print("   Anna käyttäjänimesi:")
+    print("   • Anna käyttäjänimesi •")
     käyttäjänimi = input("-> ")
     print("__________________________________________________________________")
     return käyttäjänimi
@@ -71,7 +71,8 @@ def arvokolmemaata():
 def arvolentokenttä(nykyinenmaa): # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN LENTÄÄ SEURAAVAKSI
     arvotutmaat = arvokolmemaata()
     kerrat = 1
-    print("Olet maassa", ''.join(nykyinenmaa[0]), "Minne haluat lentää seuraavaksi:")
+    print("  ")
+    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "Minne haluat lentää seuraavaksi? •")
     for n in arvotutmaat:
         if kerrat == 1:
             kenttä = etsimaanlentokenttä(''.join(n))
@@ -93,22 +94,29 @@ def arvolentokenttä(nykyinenmaa): # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN L
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
     if valinta == "A":
-        print("   Lennetään lentokentälle", ''.join(valinta1[1]))
+        print("__________________________________________________________________")
+        print("  ")
+        print("   • Lennetään lentokentälle", ''.join(valinta1[1]),"•")
         valinta = valinta1
     elif valinta == "B":
-        print("   Lennetään lentokentälle", ''.join(valinta2[1]))
+        print("__________________________________________________________________")
+        print("  ")
+        print("   • Lennetään lentokentälle", ''.join(valinta2[1]),"•")
         valinta = valinta2
     else:
-        print("   Lennetään lentokentälle", ''.join(valinta3[1]))
+        print("__________________________________________________________________")
+        print("  ")
+        print("   • Lennetään lentokentälle", ''.join(valinta3[1]),"•")
         valinta = valinta3
     print("__________________________________________________________________")
     return valinta
 
 # ______________________ KOTIMAAN VALINTA ______________________
 def kotimaanvalinta():
+    print("  ")
     arvotutmaat = arvokolmemaata()
     kerrat = 1
-    print("   Hei", käyttäjänimi, "Valitse kotimaasi:")
+    print("   • Hei", käyttäjänimi, "Valitse kotimaasi •")
     for n in arvotutmaat:
         if kerrat == 1:
             print("A.",', '.join(n))
@@ -127,30 +135,35 @@ def kotimaanvalinta():
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
     if valinta == "A":
-        print("   Kotimaaksi on valittu", ', '.join(valinta1))
+        print("__________________________________________________________________")
+        print("  ")
+        print("   • Kotimaaksi on valittu", ', '.join(valinta1),"•")
         valinta = valinta1
     elif valinta == "B":
-        print("   Kotimaaksi on valittu", ', '.join(valinta2))
+        print("__________________________________________________________________")
+        print("  ")
+        print("   • Kotimaaksi on valittu", ', '.join(valinta2),"•")
         valinta = valinta2
     else:
-        print("   Kotimaaksi on valittu", ', '.join(valinta3))
+        print("__________________________________________________________________")
+        print("  ")
+        print("   • Kotimaaksi on valittu", ', '.join(valinta3),"•")
         valinta = valinta3
     print("__________________________________________________________________")
     return valinta
 
 # ______________________ LOPPURUUTU ______________________
 def end():
-    print("Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
-    print("Olet taas kotimaassasi", ', '.join(kotimaa))
-    print("Sait", pisteet, "pistettä!")
-    print("Paina 1 palataksesi päävalikkoon")
-    print("Paina 0 lopettaaksesi ohjelman")
-    valinta = input("-> ")
-    while valinta != "1" and valinta != "0":
+    print("  ")
+    print("   Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
+    print("   Olet taas kotimaassasi", ', '.join(kotimaa))
+    print("   Sait", pisteet, "pistettä!")
+    print("  ")
+    print("     PELAA UUDELLEEN - ENTER            SULJE PELI - 0")
+    valinta = input("")
+    while valinta != "" and valinta != "0":
         print("Virheellinen syöte!")
-        print("Paina 1 palataksesi päävalikkoon")
-        print("Paina 0 lopettaaksesi ohjelman")
-        valinta = input("-> ")
+        valinta = input("")
     return valinta
 
 # KOORDINAATTIEN HAKU
@@ -192,12 +205,14 @@ yhteys = mysql.connector.connect(
          )
 
 while syöte != "0":
-    mainmenu()                              # ALOITUSRUUTU
-    käyttäjänimi = käyttäjänimivalinta()    # KÄYTTÄJÄNIMEN KYSYNTÄ
-    arvotutmaat = arvokolmemaata()          # ARPOO 3 MAATA
-    kotimaa = kotimaanvalinta()             # KOTIMAAN VALINTA
+    valinta = mainmenu()                    # ALOITUSRUUTU
+    if valinta == "0":
+        break
+    käyttäjänimi = käyttäjänimivalinta()    # PALAUTTAA KÄYTTÄJÄNIMEN
+    arvotutmaat = arvokolmemaata()          # PALAUTTAA 3 MAATA
+    kotimaa = kotimaanvalinta()             # PALAUTTAA KOTIMAAN
     nykyinenmaa = kotimaa
-    nykyinenmaa = arvolentokenttä(nykyinenmaa)
+    nykyinenmaa = arvolentokenttä(nykyinenmaa) # PALAUTTAA NYKYISEN MAAN
     valinta = end()
     if valinta == "0":
         break
