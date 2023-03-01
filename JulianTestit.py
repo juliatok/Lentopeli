@@ -114,10 +114,11 @@ def anna_vastaus(vastaukset):
 
 while lennot < 1:
     valinta = "Iso-Britannia"
-    maa_id = hae_id(valinta)
-    kysymys_id = kysymys_pelaajalle(maa_id)
-    vastaukset = vastaus_vaihtoehdot(kysymys_id)
+    id = hae_id(valinta)
+    kysymys = kysymys_pelaajalle(id)
+    vastaukset = vastaus_vaihtoehdot(kysymys)
     pelaajan_vastaus = anna_vastaus(vastaukset)
+
     lennot = lennot + 1
 
 
