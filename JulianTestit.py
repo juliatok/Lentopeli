@@ -42,36 +42,78 @@ print(f"Kulkemasi matkan pituus yhteensä: {kuljettu_matka:.0f} km")"""
 
 lennot = 0
 
-def kysymys(sijainti):
-     sql = "select ID, kysymys from vastaukset where paikka_id = '" + sijainti + "'"
-     cursor = yhteys.cursor()
-     cursor.execute(sql)
-     kysymykset = cursor.fetchall()
-     print(kysymykset)
-     kysyttava_kysymys = random.choice(kysymykset)
-     for k in kysyttava_kysymys:
-         print(k)
 
+def hae_id(valinta):
 
-def vastaus_vaihtoehdot(sijainti):
-    sql = "select oikein, väärin1, väärin2 from vastaukset where paikka_id = '" + sijainti + "'"
+    sql = "select ID from maat where Nimi = '" + valinta + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
-    vastausvaihtoehdot = cursor.fetchall()
-    print(vastausvaihtoehdot)
+    result = cursor.fetchall()
+
+    return result[0][0]
+
+def kysymys_pelaajalle(id):
+
+    sql = "select ID, kysymys from vastaukset where paikka_id = '" + str(id) + "'"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    kysymykset = cursor.fetchall()
+
+    kysyttava_kysymys = random.choice(kysymykset)
+    print(kysyttava_kysymys[1])
+    print("")
+
+    return kysyttava_kysymys[0]
+
+
+def vastaus_vaihtoehdot(id):
+
+    sql = "select oikein, väärin1, väärin2 from vastaukset where ID = '" + str(id) + "'"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    ret = list(cursor.fetchall()[0])
+
+    vastausvaihtoehdot = []
+    vastausvaihtoehdot.append([ret[0], "oikein"])
+    vastausvaihtoehdot.append([ret[1], "väärin"])
+    vastausvaihtoehdot.append([ret[2], "väärin"])
+
+    random.shuffle(vastausvaihtoehdot)
+
+    vastausvaihtoehdot[0].append("A")
+    vastausvaihtoehdot[1].append("B")
+    vastausvaihtoehdot[2].append("C")
+
+    for vastaus, paikkansapitavyys, kirjain in vastausvaihtoehdot:
+        print(f"{kirjain}) {vastaus}")
+    print("")
+
     return vastausvaihtoehdot
 
-def kysymys_vastausvaihtoehdot_pelaajalle(kysymys, vastaukset):
-    if kysymys == kysymys[0]:
-            print(vastaukset[0])
+
+def anna_vastaus(vastaukset):
+
+    pelaajan_syote = input("-> ").upper()
+
+    while pelaajan_syote != "A" and  pelaajan_syote != "B" and pelaajan_syote != "C":
+        print("Virheellinen syöte! Valitse A, B tai C!")
+
+    if pelaajan_syote == vastaukset[1] == "oikein":
+        print("Oikein!")
     else:
-            print(vastaukset[1])
+        print("Väärin!")
+
     return
 
+
+
 while lennot < 1:
-    paikka_id = "1"
-    kysymys = kysymys(paikka_id)
-    vastaukset = vastaus_vaihtoehdot(paikka_id)
+    valinta = "Iso-Britannia"
+    maa_id = hae_id(valinta)
+    kysymys_id = kysymys_pelaajalle(maa_id)
+    vastaukset = vastaus_vaihtoehdot(kysymys_id)
+    print(vastaukset)
+    pelaajan_vastaus = anna_vastaus(vastaukset)
     lennot = lennot + 1
 
 
