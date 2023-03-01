@@ -96,15 +96,20 @@ def anna_vastaus(vastaukset):
     pelaajan_syote = input("-> ").upper()
 
     while pelaajan_syote != "A" and  pelaajan_syote != "B" and pelaajan_syote != "C":
+        print("")
         print("Virheellinen syöte! Valitse A, B tai C!")
+        pelaajan_syote = input("-> ").upper()
 
-    if pelaajan_syote == vastaukset[1] == "oikein":
-        print("Oikein!")
-    else:
-        print("Väärin!")
+    for vastaus in vastaukset:
+        if pelaajan_syote in vastaus:
+            if vastaus[1] == "oikein":
+                print("")
+                print("Oikein!")
+            else:
+                print("")
+                print("Väärin meni!")
 
     return
-
 
 
 while lennot < 1:
@@ -112,7 +117,6 @@ while lennot < 1:
     maa_id = hae_id(valinta)
     kysymys_id = kysymys_pelaajalle(maa_id)
     vastaukset = vastaus_vaihtoehdot(kysymys_id)
-    print(vastaukset)
     pelaajan_vastaus = anna_vastaus(vastaukset)
     lennot = lennot + 1
 
