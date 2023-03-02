@@ -3,6 +3,7 @@ import geopy.distance
 import random
 
 syöte = 1
+# lennot = 0
 pisteet = 300
 kuljettu_matka = 0
 
@@ -152,6 +153,77 @@ def kotimaanvalinta():
     print("__________________________________________________________________")
     return valinta
 
+# HAE VALITUN MAAN ID:
+def hae_id(sijainti):
+
+    sql = "select ID from maat where Nimi = '" + sijainti[0] + "'"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+    return result[0][0]
+
+# VALITUN MAAN KYSYMYS PELAAJALLE:
+def kysymys_pelaajalle(id):
+
+    sql = "select ID, kysymys from vastaukset where paikka_id = '" + str(id) + "'"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    kysymykset = cursor.fetchall()
+
+    kysyttava_kysymys = random.choice(kysymykset)
+    print("")
+    print(kysyttava_kysymys[1])
+    print("")
+
+    return kysyttava_kysymys[0]
+
+# VASTAUSVAIHTOEHDOT PELAAJALLE:
+
+def vastaus_vaihtoehdot(id):
+
+    sql = "select oikein, väärin1, väärin2 from vastaukset where ID = '" + str(id) + "'"
+    cursor = yhteys.cursor()
+    cursor.execute(sql)
+    ret = list(cursor.fetchall()[0])
+
+    vastausvaihtoehdot = []
+    vastausvaihtoehdot.append([ret[0], "oikein"])
+    vastausvaihtoehdot.append([ret[1], "väärin"])
+    vastausvaihtoehdot.append([ret[2], "väärin"])
+
+    random.shuffle(vastausvaihtoehdot)
+
+    vastausvaihtoehdot[0].append("A")
+    vastausvaihtoehdot[1].append("B")
+    vastausvaihtoehdot[2].append("C")
+
+    for vastaus, paikkansapitavyys, kirjain in vastausvaihtoehdot:
+        print(f"{kirjain}) {vastaus}")
+    print("")
+
+    return vastausvaihtoehdot
+
+# PELAAJAN VASTAUS:
+def anna_vastaus(vastaukset):
+
+    pelaajan_syote = input("-> ").upper()
+
+    while pelaajan_syote != "A" and  pelaajan_syote != "B" and pelaajan_syote != "C":
+        print("")
+        print("Virheellinen syöte! Valitse A, B tai C!")
+        pelaajan_syote = input("-> ").upper()
+
+    for vastaus in vastaukset:
+        if pelaajan_syote in vastaus:
+            if vastaus[1] == "oikein":
+                print("")
+                print("Oikein!")
+            else:
+                print("")
+                print("Väärin meni!")
+
+
 # ______________________ LOPPURUUTU ______________________
 def end():
     print("  ")
@@ -194,13 +266,14 @@ def end():
 
 # ______________________ PÄÄOHJELMA ______________________
 
-# YHTEYS MYSQL
+# YHTEYS MYSQL:
+
 yhteys = mysql.connector.connect(
          host='localhost',
          port= 3306,
          database='flight_game',
          user='root',
-         password='assiponi',
+         password='m!näk00d44n',
          autocommit=True
          )
 
@@ -212,7 +285,13 @@ while syöte != "0":
     arvotutmaat = arvokolmemaata()          # PALAUTTAA 3 MAATA
     kotimaa = kotimaanvalinta()             # PALAUTTAA KOTIMAAN
     nykyinenmaa = kotimaa
-    nykyinenmaa = arvolentokenttä(nykyinenmaa) # PALAUTTAA NYKYISEN MAAN
+# looppi lentämisestä? while lennot < 11:
+    nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
+    id = hae_id(nykyinenmaa[0])                # HAKEE MAAN ID
+    kysymys_id = kysymys_pelaajalle(id)        # HAKEE KYSYMYKSEN PELAAJALLE
+    vastaukset = vastaus_vaihtoehdot(kysymys_id)  # HAKEE VASTAUSVAIHTOEHDOT PELAAJALLE
+    pelaajan_vastaus = anna_vastaus(vastaukset)  # PELAAJA SYÖTTÄÄ VASTAUKSEN -> OIKEIN/VÄÄRIN
+#    lennot = + 1
     valinta = end()
     if valinta == "0":
         break
