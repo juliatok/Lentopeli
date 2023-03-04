@@ -211,6 +211,8 @@ def vastaus_vaihtoehdot(id):
     return vastausvaihtoehdot
 
 # PELAAJAN VASTAUS:
+# palauttaa 0 jos vastaus oikein, -1 jos väärin
+
 def anna_vastaus(vastaukset):
 
     pelaajan_syote = input("-> ").upper()
@@ -225,12 +227,13 @@ def anna_vastaus(vastaukset):
     for vastaus in vastaukset:
         if pelaajan_syote in vastaus:
             if vastaus[1] == "oikein":
-                print("   Oikein! Sait ___ pistettä!")
-                print("   Sinulla on yhteensä ___ pistettä.")
+                print("   Oikein!")
+                return 0
             else:
                 print("   Väärin meni!")
-                print("   Sinulla on yhteensä ___ pistettä.")
+                return -1
     print("____________________________________________________________________")
+
 
 
 # ______________________ LOPPURUUTU ______________________
@@ -287,7 +290,7 @@ yhteys = mysql.connector.connect(
          port= 3306,
          database='flight_game',
          user='root',
-         password='assiponi',
+         password='m!näk00d44n',
          autocommit=True
          )
 
