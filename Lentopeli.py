@@ -4,22 +4,22 @@ import random
 
 # ______________________ ALOITUSRUUTU ______________________
 def mainmenu():
-    print("__________________________________________________________________")
+    print("____________________________________________________________________")
     print("  ")
-    print("███████╗██╗░░░██╗██████╗░░█████╗░░█████╗░██████╗░██████╗░░█████╗░")
-    print("██╔════╝██║░░░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗")
-    print("█████╗░░██║░░░██║██████╔╝██║░░██║██║░░██║██████╔╝██████╔╝███████║")
-    print("██╔══╝░░██║░░░██║██╔══██╗██║░░██║██║░░██║██╔═══╝░██╔═══╝░██╔══██║")
-    print("███████╗╚██████╔╝██║░░██║╚█████╔╝╚█████╔╝██║░░░░░██║░░░░░██║░░██║")
-    print("╚══════╝░╚═════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚═╝")
-    print("████████╗██╗███████╗████████╗░█████╗░██╗░░░██╗██╗░██████╗░█████╗░")
-    print("╚══██╔══╝██║██╔════╝╚══██╔══╝██╔══██╗██║░░░██║██║██╔════╝██╔══██╗")
-    print("░░░██║░░░██║█████╗░░░░░██║░░░██║░░██║╚██╗░██╔╝██║╚█████╗░███████║")
-    print("░░░██║░░░██║██╔══╝░░░░░██║░░░██║░░██║░╚████╔╝░██║░╚═══██╗██╔══██║")
-    print("░░░██║░░░██║███████╗░░░██║░░░╚█████╔╝░░╚██╔╝░░██║██████╔╝██║░░██║")
-    print("░░░╚═╝░░░╚═╝╚══════╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝╚═════╝░╚═╝░░╚═╝")
-    print("          ALOITA PELI - ENTER            SULJE PELI - 0")
-    print("__________________________________________________________________")
+    print("  ███████╗██╗░░░██╗██████╗░░█████╗░░█████╗░██████╗░██████╗░░█████╗░")
+    print("  ██╔════╝██║░░░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗")
+    print("  █████╗░░██║░░░██║██████╔╝██║░░██║██║░░██║██████╔╝██████╔╝███████║")
+    print("  ██╔══╝░░██║░░░██║██╔══██╗██║░░██║██║░░██║██╔═══╝░██╔═══╝░██╔══██║")
+    print("  ███████╗╚██████╔╝██║░░██║╚█████╔╝╚█████╔╝██║░░░░░██║░░░░░██║░░██║")
+    print("  ╚══════╝░╚═════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚═╝")
+    print("  ████████╗██╗███████╗████████╗░█████╗░██╗░░░██╗██╗░██████╗░█████╗░")
+    print("  ╚══██╔══╝██║██╔════╝╚══██╔══╝██╔══██╗██║░░░██║██║██╔════╝██╔══██╗")
+    print("  ░░░██║░░░██║█████╗░░░░░██║░░░██║░░██║╚██╗░██╔╝██║╚█████╗░███████║")
+    print("  ░░░██║░░░██║██╔══╝░░░░░██║░░░██║░░██║░╚████╔╝░██║░╚═══██╗██╔══██║")
+    print("  ░░░██║░░░██║███████╗░░░██║░░░╚█████╔╝░░╚██╔╝░░██║██████╔╝██║░░██║")
+    print("  ░░░╚═╝░░░╚═╝╚══════╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝╚═════╝░╚═╝░░╚═╝")
+    print("            ALOITA PELI - ENTER            SULJE PELI - 0")
+    print("____________________________________________________________________")
     syöte = input()
     while syöte != "" and syöte != "0":
         print("Virheellinen syöte!")
@@ -31,19 +31,29 @@ def mainmenu():
 # ______________________ KÄYTTÄJÄNIMI ______________________
 def käyttäjänimivalinta():
     print("   • Anna käyttäjänimesi •")
+    print(" ")
     käyttäjänimi = input("-> ")
-    print("__________________________________________________________________")
+    print("____________________________________________________________________")
     return käyttäjänimi
 
 # ____________________ ARPOO LENTOKENTÄN MAALLE ____________________
 def etsimaanlentokenttä(maa):
-    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.iso_country and (type = 'large_airport' or type = 'medium_airport') order by rand() limit 1"
-    #print(sql)
+    sql = "select airport.name from airport, maat where nimi = '" + str(maa) + "' and airport.iso_country = maat.iso_country and type = 'large_airport' order by rand() limit 1"
+    # print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
     tulos = kursori.fetchall()
-    #print(tulos)
-    return tulos
+    length = len(tulos)
+    # print(tulos)
+    if length != 0:
+        return tulos
+    else: # JOS MAALLA EI OLE ISOA LENTOKENTTÄÄ, SE HAKEE KESKIKOKOISEN
+        sql = "select airport.name from airport, maat where nimi = '" + str(maa) + "' and airport.iso_country = maat.iso_country and type = 'medium_airport' order by rand() limit 1"
+        # print(sql)
+        kursori = yhteys.cursor()
+        kursori.execute(sql)
+        tulos = kursori.fetchall()
+        return tulos
 
 # ______________________ ARPOO 3 MAATA ______________________
 def arvokolmemaata():
@@ -68,7 +78,8 @@ def arvolentokenttä(nykyinenmaa): # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN L
     arvotutmaat = arvokolmemaata()
     kerrat = 1
     print("  ")
-    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "Minne haluat lentää seuraavaksi? •")
+    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "Valitse minne haluat lentää! •")
+    print("  ")
     for n in arvotutmaat:
         if kerrat == 1:
             kenttä = etsimaanlentokenttä(''.join(n))
@@ -89,30 +100,33 @@ def arvolentokenttä(nykyinenmaa): # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN L
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
+    print("____________________________________________________________________")
+    print("  ")
     if valinta == "A":
-        print("__________________________________________________________________")
-        print("  ")
-        print("   • Lennetään lentokentälle", ''.join(valinta1[1]),"•")
+        print("   • Lennetään lentokentälle", ''.join(valinta1[1]), ''.join(valinta1[0]), "•")
         valinta = valinta1
     elif valinta == "B":
-        print("__________________________________________________________________")
-        print("  ")
-        print("   • Lennetään lentokentälle", ''.join(valinta2[1]),"•")
+        print("   • Lennetään lentokentälle", ''.join(valinta2[1]),''.join(valinta1[0]),"•")
         valinta = valinta2
     else:
-        print("__________________________________________________________________")
-        print("  ")
-        print("   • Lennetään lentokentälle", ''.join(valinta3[1]),"•")
+        print("   • Lennetään lentokentälle", ''.join(valinta3[1]),''.join(valinta1[0]),"•")
         valinta = valinta3
-    print("__________________________________________________________________")
+    print("____________________________________________________________________")
     return valinta
 
 # ______________________ KOTIMAAN VALINTA ______________________
-def kotimaanvalinta():
+def kotimaanvalinta(käyttäjänimi):
+    print("  ")
+    print("Tervetuloa pelaamaan Eurooppa Tietovisa peliä", käyttäjänimi, "!")
+    print(" ")
+    print("Tässä pelissä kierrät läpi kymmenen Euroopan maata")
+    print("vastaten ei maihin liittyviin kysymyksiin.")
+    print(" ")
+    print("Aloita seikkailusi valitsemalla kotimaasi, josta aloitat pelin.")
+    print("____________________________________________________________________")
     print("  ")
     arvotutmaat = arvokolmemaata()
     kerrat = 1
-    print("   • Hei", käyttäjänimi, "Valitse kotimaasi •")
     for n in arvotutmaat:
         if kerrat == 1:
             print("A.",', '.join(n))
@@ -130,19 +144,15 @@ def kotimaanvalinta():
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
+    print("____________________________________________________________________")
+    print("  ")
     if valinta == "A":
-        print("__________________________________________________________________")
-        print("  ")
         print("   • Kotimaaksi on valittu", ', '.join(valinta1),"•")
         valinta = valinta1
     elif valinta == "B":
-        print("__________________________________________________________________")
-        print("  ")
         print("   • Kotimaaksi on valittu", ', '.join(valinta2),"•")
         valinta = valinta2
     else:
-        print("__________________________________________________________________")
-        print("  ")
         print("   • Kotimaaksi on valittu", ', '.join(valinta3),"•")
         valinta = valinta3
     print("__________________________________________________________________")
@@ -210,14 +220,17 @@ def anna_vastaus(vastaukset):
         print("Virheellinen syöte! Valitse A, B tai C!")
         pelaajan_syote = input("-> ").upper()
 
+    print("____________________________________________________________________")
+    print("")
     for vastaus in vastaukset:
         if pelaajan_syote in vastaus:
             if vastaus[1] == "oikein":
-                print("")
-                print("Oikein!")
+                print("   Oikein! Sait ___ pistettä!")
+                print("   Sinulla on yhteensä ___ pistettä.")
             else:
-                print("")
-                print("Väärin meni!")
+                print("   Väärin meni!")
+                print("   Sinulla on yhteensä ___ pistettä.")
+    print("____________________________________________________________________")
 
 
 # ______________________ LOPPURUUTU ______________________
@@ -284,7 +297,7 @@ while syöte != "0":
         break
     käyttäjänimi = käyttäjänimivalinta()    # PALAUTTAA KÄYTTÄJÄNIMEN
     arvotutmaat = arvokolmemaata()          # PALAUTTAA 3 MAATA
-    kotimaa = kotimaanvalinta()             # PALAUTTAA KOTIMAAN
+    kotimaa = kotimaanvalinta(käyttäjänimi)             # PALAUTTAA KOTIMAAN
     nykyinenmaa = kotimaa
     while lennot < 11:
         nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
