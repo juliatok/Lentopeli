@@ -2,11 +2,6 @@ import mysql.connector
 import geopy.distance
 import random
 
-syöte = 1
-# lennot = 0
-pisteet = 300
-kuljettu_matka = 0
-
 # ______________________ ALOITUSRUUTU ______________________
 def mainmenu():
     print("__________________________________________________________________")
@@ -42,7 +37,7 @@ def käyttäjänimivalinta():
 
 # ____________________ ARPOO LENTOKENTÄN MAALLE ____________________
 def etsimaanlentokenttä(maa):
-    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.maakoodi and (type = 'large_airport' or type = 'medium_airport') order by rand() limit 1"
+    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.iso_country and (type = 'large_airport' or type = 'medium_airport') order by rand() limit 1"
     #print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
@@ -164,7 +159,7 @@ def hae_id(sijainti):
     return result[0][0]
 
 # VALITUN MAAN KYSYMYS PELAAJALLE:
-def kysymys_pelaajalle(id):
+def kysymys_pelaajalle(id, lennot):
 
     sql = "select ID, kysymys from vastaukset where paikka_id = '" + str(id) + "'"
     cursor = yhteys.cursor()
@@ -173,6 +168,7 @@ def kysymys_pelaajalle(id):
 
     kysyttava_kysymys = random.choice(kysymykset)
     print("")
+    print("Kysymys", lennot)
     print(kysyttava_kysymys[1])
     print("")
 
@@ -268,12 +264,17 @@ def end():
 
 # YHTEYS MYSQL:
 
+syöte = 1
+lennot = 1
+pisteet = 0
+kuljettu_matka = 0
+
 yhteys = mysql.connector.connect(
          host='localhost',
          port= 3306,
          database='flight_game',
          user='root',
-         password='m!näk00d44n',
+         password='assiponi',
          autocommit=True
          )
 
@@ -285,13 +286,13 @@ while syöte != "0":
     arvotutmaat = arvokolmemaata()          # PALAUTTAA 3 MAATA
     kotimaa = kotimaanvalinta()             # PALAUTTAA KOTIMAAN
     nykyinenmaa = kotimaa
-# looppi lentämisestä? while lennot < 11:
-    nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
-    id = hae_id(nykyinenmaa[0])                # HAKEE MAAN ID
-    kysymys_id = kysymys_pelaajalle(id)        # HAKEE KYSYMYKSEN PELAAJALLE
-    vastaukset = vastaus_vaihtoehdot(kysymys_id)  # HAKEE VASTAUSVAIHTOEHDOT PELAAJALLE
-    pelaajan_vastaus = anna_vastaus(vastaukset)  # PELAAJA SYÖTTÄÄ VASTAUKSEN -> OIKEIN/VÄÄRIN
-#    lennot = + 1
+    while lennot < 11:
+        nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
+        id = hae_id(nykyinenmaa[0])                # HAKEE MAAN ID
+        kysymys_id = kysymys_pelaajalle(id, lennot)        # HAKEE KYSYMYKSEN PELAAJALLE
+        vastaukset = vastaus_vaihtoehdot(kysymys_id)  # HAKEE VASTAUSVAIHTOEHDOT PELAAJALLE
+        pelaajan_vastaus = anna_vastaus(vastaukset)  # PELAAJA SYÖTTÄÄ VASTAUKSEN -> OIKEIN/VÄÄRIN
+        lennot = lennot + 1
     valinta = end()
     if valinta == "0":
         break
