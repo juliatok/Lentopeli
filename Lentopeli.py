@@ -179,6 +179,7 @@ def kysymys_pelaajalle(id, lennot):
     kysyttava_kysymys = random.choice(kysymykset)
     print("")
     print("Kysymys", lennot)
+    print("")
     print(kysyttava_kysymys[1])
     print("")
 
