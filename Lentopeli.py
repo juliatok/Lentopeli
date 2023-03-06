@@ -235,7 +235,16 @@ def anna_vastaus(vastaukset):
                 return -1
     print("____________________________________________________________________")
 
-
+# ______________________ PISTEFUNKTIO ______________________
+def pisteidenlasku(pelaajan_vastaus, pisteet):
+    if pelaajan_vastaus == 0:
+        print("Oikein! Sait 80 pistettä!")
+        pisteet = pisteet + 80
+    else:
+        print("Väärin meni. Menetit 20 pistettä.")
+        pisteet = pisteet - 20
+    print(f"Sinulla on nyt yhteensä {pisteet} pistettä.")
+    return pisteet
 
 # ______________________ LOPPURUUTU ______________________
 def end():
@@ -291,7 +300,7 @@ yhteys = mysql.connector.connect(
          port= 3306,
          database='flight_game',
          user='root',
-         password='m!näk00d44n',
+         password='keltainenKoira123',
          autocommit=True
          )
 
@@ -309,6 +318,7 @@ while syöte != "0":
         kysymys_id = kysymys_pelaajalle(id, lennot)        # HAKEE KYSYMYKSEN PELAAJALLE
         vastaukset = vastaus_vaihtoehdot(kysymys_id)  # HAKEE VASTAUSVAIHTOEHDOT PELAAJALLE
         pelaajan_vastaus = anna_vastaus(vastaukset)  # PELAAJA SYÖTTÄÄ VASTAUKSEN -> OIKEIN/VÄÄRIN
+        pisteet = pisteidenlasku(pelaajan_vastaus, pisteet)
         lennot = lennot + 1
     valinta = end()
     if valinta == "0":

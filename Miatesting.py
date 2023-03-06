@@ -14,6 +14,18 @@ import random
 
 #PISTEIDENKERÄYS/TALLENNUS
 
+pisteet = pisteidenlasku(pelaajan_vastaus, pisteet)
+
+def pisteidenlasku(pelaajan_vastaus, pisteet):
+    if pelaajan_vastaus == 0:
+        print("Oikein! Sait 80 pistettä!")
+        pisteet = pisteet + 80
+    else:
+        print("Väärin meni. Menetit 20 pistettä.")
+        pisteet = pisteet - 20
+    print(f"Sinulla on nyt yhteensä {pisteet} pistettä.")
+    return pisteet
+
 def pisteet(K1,pisteet):
     if K1 == "Sininen":
         print("Oikein! Sait 10 pistettä.")
