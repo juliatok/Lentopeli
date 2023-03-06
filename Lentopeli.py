@@ -67,10 +67,11 @@ def arvokolmemaata():
         kursori.execute(sql)
         tulos = kursori.fetchall()
         for n in tulos:
-            if n not in arvotutmaat:
-                #print(n)
-                arvotutmaat.append(n)
-                kerrat = kerrat + 1
+            if n not in käydytmaat:
+                if n not in arvotutmaat:
+                    #print(n)
+                    arvotutmaat.append(n)
+                    kerrat = kerrat + 1
     return arvotutmaat
 
 # _________________ VALITSEE SEURAAVAN MAAN ______________________
@@ -291,8 +292,6 @@ def end():
 # YHTEYS MYSQL:
 
 syöte = 1
-lennot = 1
-pisteet = 0
 kuljettu_matka = 0
 
 yhteys = mysql.connector.connect(
@@ -300,20 +299,25 @@ yhteys = mysql.connector.connect(
          port= 3306,
          database='flight_game',
          user='root',
-         password='keltainenKoira123',
+         password='assiponi',
          autocommit=True
          )
 
 while syöte != "0":
-    valinta = mainmenu()                    # ALOITUSRUUTU
+    lennot = 1
+    pisteet = 0
+    valinta = mainmenu()  # ALOITUSRUUTU
+    käydytmaat = [] # LISTAA KAIKKI MAAT JOSSA PELAAJA ON KÄYNYT
     if valinta == "0":
         break
     käyttäjänimi = käyttäjänimivalinta()    # PALAUTTAA KÄYTTÄJÄNIMEN
     arvotutmaat = arvokolmemaata()          # PALAUTTAA 3 MAATA
     kotimaa = kotimaanvalinta(käyttäjänimi)             # PALAUTTAA KOTIMAAN
+    käydytmaat.append(kotimaa)
     nykyinenmaa = kotimaa
     while lennot < 11:
         nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
+        käydytmaat.append(nykyinenmaa[0])
         id = hae_id(nykyinenmaa[0])                # HAKEE MAAN ID
         kysymys_id = kysymys_pelaajalle(id, lennot)        # HAKEE KYSYMYKSEN PELAAJALLE
         vastaukset = vastaus_vaihtoehdot(kysymys_id)  # HAKEE VASTAUSVAIHTOEHDOT PELAAJALLE
@@ -321,6 +325,7 @@ while syöte != "0":
         pisteet = pisteidenlasku(pelaajan_vastaus, pisteet)
         lennot = lennot + 1
     valinta = end()
+
     if valinta == "0":
         break
 
