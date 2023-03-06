@@ -4,13 +4,24 @@ import random
 käyttäjänimi = "Wimmu"
 
 def etsimaanlentokenttä(maa):
-    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.maakoodi and (type = 'large_airport' or type = 'medium_airport') order by rand() limit 1"
+    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.iso_country and type = 'large_airport' order by rand() limit 1"
     #print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
     tulos = kursori.fetchall()
+    length = len(tulos)
     #print(tulos)
-    return tulos
+    if length != 0:
+        return tulos
+    else:
+        sql = "select airport.name from airport, maat where nimi = '" + str(maa) + "' and airport.iso_country = maat.iso_country and type = 'medium_airport' order by rand() limit 1"
+        # print(sql)
+        kursori = yhteys.cursor()
+        kursori.execute(sql)
+        tulos = kursori.fetchall()
+        return tulos
+
+
 def arvokolmemaata(): # ARPOO KOLME MAATA TIETOKANNASTA
     kerrat = 0
     arvotutmaat = []
