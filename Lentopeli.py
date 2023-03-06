@@ -6,11 +6,25 @@ syöte = 1
 pisteet = 300
 kuljettu_matka = 0
 
-# ALOITUSRUUTU
+# ______________________ ALOITUSRUUTU ______________________
 def mainmenu():
-    print("Paina enter aloittaaksesi pelin.")
-    print("Paina 0 lopettaaksesi ohjelman")
-    syöte = input("-> ")
+    print("__________________________________________________________________")
+    print("  ")
+    print("███████╗██╗░░░██╗██████╗░░█████╗░░█████╗░██████╗░██████╗░░█████╗░")
+    print("██╔════╝██║░░░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗")
+    print("█████╗░░██║░░░██║██████╔╝██║░░██║██║░░██║██████╔╝██████╔╝███████║")
+    print("██╔══╝░░██║░░░██║██╔══██╗██║░░██║██║░░██║██╔═══╝░██╔═══╝░██╔══██║")
+    print("███████╗╚██████╔╝██║░░██║╚█████╔╝╚█████╔╝██║░░░░░██║░░░░░██║░░██║")
+    print("╚══════╝░╚═════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚═╝")
+    print("████████╗██╗███████╗████████╗░█████╗░██╗░░░██╗██╗░██████╗░█████╗░")
+    print("╚══██╔══╝██║██╔════╝╚══██╔══╝██╔══██╗██║░░░██║██║██╔════╝██╔══██╗")
+    print("░░░██║░░░██║█████╗░░░░░██║░░░██║░░██║╚██╗░██╔╝██║╚█████╗░███████║")
+    print("░░░██║░░░██║██╔══╝░░░░░██║░░░██║░░██║░╚████╔╝░██║░╚═══██╗██╔══██║")
+    print("░░░██║░░░██║███████╗░░░██║░░░╚█████╔╝░░╚██╔╝░░██║██████╔╝██║░░██║")
+    print("░░░╚═╝░░░╚═╝╚══════╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝╚═════╝░╚═╝░░╚═╝")
+    print("          ALOITA PELI - ENTER            SULJE PELI - 0")
+    print("__________________________________________________________________")
+    syöte = input()
     while syöte != "" and syöte != 0:
         print("Virheellinen syöte!")
         print("Paina enter aloittaaksesi pelin.")
@@ -18,20 +32,15 @@ def mainmenu():
         syöte = input("-> ")
     return syöte
 
-# KÄYTTÄJÄNIMEN SYÖTTÖ
-def username():
-    print("Anna käyttäjänimesi:")
+# ______________________ KÄYTTÄJÄNIMI ______________________
+def käyttäjänimivalinta():
+    print("   Anna käyttäjänimesi:")
     käyttäjänimi = input("-> ")
-    sql = "insert into käyttäjä(nimi,pisteet) values ('" + käyttäjänimi + "', 0)"
-    print(sql)
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    yhteys.commit()
-    #print("Tervetuloa",käyttäjänimi)
+    print("__________________________________________________________________")
     return käyttäjänimi
 
-# KOTIMAAN VALINTA
-def arvokenttä(): # ARPOO KOLME MAATA TIETOKANNASTA
+# ______________________ ARPOO 3 MAATA ______________________
+def arvokolmemaata(): # ARPOO KOLME MAATA TIETOKANNASTA
     kerrat = 0
     arvotutmaat = []
     while kerrat != 3:
@@ -48,9 +57,11 @@ def arvokenttä(): # ARPOO KOLME MAATA TIETOKANNASTA
                 kerrat = kerrat + 1
     return arvotutmaat
 
-def maanvalinta(arvotutmaat):
+# ______________________ KOTIMAAN VALINTA ______________________
+def kotimaanvalinta():
+    arvotutmaat = arvokolmemaata()
     kerrat = 1
-    print("Hei", käyttäjänimi, "Valitse kotimaasi:")
+    print("   Hei", käyttäjänimi, "Valitse kotimaasi:")
     for n in arvotutmaat:
         if kerrat == 1:
             print("A.",', '.join(n))
@@ -64,32 +75,23 @@ def maanvalinta(arvotutmaat):
             print("C.",', '.join(n))
             kerrat = kerrat + 1
             valinta3 = n
-    valinta = input("-> ")
+    valinta = input("-> ").upper()
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
-        valinta = input("-> ")
+        valinta = input("-> ").upper()
     if valinta == "A":
-        print("Kotimaasi on", ', '.join(valinta1))
+        print("   Kotimaasi on", ', '.join(valinta1))
         valinta = valinta1
     elif valinta == "B":
-        print("Kotimaasi on", ', '.join(valinta2))
+        print("   Kotimaasi on", ', '.join(valinta2))
         valinta = valinta2
     else:
-        print("Kotimaasi on", ', '.join(valinta3))
+        print("   Kotimaasi on", ', '.join(valinta3))
         valinta = valinta3
+    print("__________________________________________________________________")
     return valinta
-"""def maanvalinta():
-    print("Hei", käyttäjänimi, "Valitse kotimaasi:")
-    print("A. Suomi B. Ruotsi C. Tanska")
-    valinta = input("-> ")
-    while valinta != "A" and valinta != "B" and valinta != "C":
-        print("Virheellinen syöte!")
-        print("Valitse kotimaasi:")
-        print("A. Suomi B. Ruotsi C. Tanska")
-        valinta = input("-> ")
-    return valinta"""
 
-# LOPPURUUTU
+# ______________________ LOPPURUUTU ______________________
 def end():
     print("Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
     print("Olet taas kotimaassasi", ', '.join(kotimaa))
@@ -106,37 +108,18 @@ def end():
 
 # KOORDINAATTIEN HAKU
 
-"""def hae_koordinaatit(airport_name):
-    sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
-    cursor = yhteys.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    return result"""
+# def hae_koordinaatit(airport_name):
+#    sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
+#    cursor = yhteys.cursor()
+#    cursor.execute(sql)
+#    result = cursor.fetchall()
+#    return result
 
 # MATKAN PITUUDEN LASKEMINEN
 
-"""def laske_välimatka(koordinaatit_1, koordinaatit_2):
-    result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
-    return result"""
-
-
-# ______________________ PÄÄOHJELMA ______________________
-
-# YHTEYS MYSQL
-yhteys = mysql.connector.connect(
-         host='localhost',
-         port= 3306,
-         database='flight_game',
-         user='root',
-         password='Suzu',
-         autocommit=True
-         )
-
-while syöte != "0":
-    mainmenu()                          # ALOITUSRUUTU
-    käyttäjänimi = username()           # KÄYTTÄJÄNIMEN KYSYNTÄ
-    arvotutmaat = arvokenttä()          # ARPOO 3 MAATA
-    kotimaa = maanvalinta(arvotutmaat)  # KOTIMAAN VALINTA
+# def laske_välimatka(koordinaatit_1, koordinaatit_2):
+#    result = geopy.distance.geodesic(koordinaatit_1, koordinaatit_2).km
+#    return result
 
 # LENTOMATKAN PITUUS (omaksi funktioksi?)
 
@@ -148,6 +131,24 @@ while syöte != "0":
 # kuljettu_matka = + välimatka
 # print(f"Kulkemasi matkan pituus: {kuljettu_matka:.0f} km")
 
+
+# ______________________ PÄÄOHJELMA ______________________
+
+# YHTEYS MYSQL
+yhteys = mysql.connector.connect(
+         host='localhost',
+         port= 3306,
+         database='flight_game',
+         user='root',
+         password='assiponi',
+         autocommit=True
+         )
+
+while syöte != "0":
+    mainmenu()                              # ALOITUSRUUTU
+    käyttäjänimi = käyttäjänimivalinta()    # KÄYTTÄJÄNIMEN KYSYNTÄ
+    arvotutmaat = arvokolmemaata()          # ARPOO 3 MAATA
+    kotimaa = kotimaanvalinta()             # KOTIMAAN VALINTA
     valinta = end()
     if valinta == "0":
         break
