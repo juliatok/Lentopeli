@@ -211,6 +211,8 @@ def vastaus_vaihtoehdot(id):
     return vastausvaihtoehdot
 
 # PELAAJAN VASTAUS:
+# Palauttaa: 0 jos oikein / -1 jos väärin
+
 def anna_vastaus(vastaukset):
 
     pelaajan_syote = input("-> ").upper()
@@ -225,9 +227,11 @@ def anna_vastaus(vastaukset):
             if vastaus[1] == "oikein":
                 print("")
                 print("Oikein!")
+                return 0
             else:
                 print("")
                 print("Väärin meni!")
+                return -1
 
 
 # ______________________ LOPPURUUTU ______________________
