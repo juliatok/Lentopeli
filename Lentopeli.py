@@ -35,14 +35,20 @@ def mainmenu():
 
 # ______________________ KÄYTTÄJÄNIMI ______________________
 def käyttäjänimivalinta():
-    print("   • Anna käyttäjänimesi •")
+    print("Anna käyttäjänimesi:")
     käyttäjänimi = input("-> ")
-    print("__________________________________________________________________")
+    sql = "insert into käyttäjä(nimi,pisteet) values ('" + käyttäjänimi + "', 0)"
+    #print(sql)
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+
+    yhteys.commit()
+    print("Tervetuloa", käyttäjänimi)
     return käyttäjänimi
 
 # ____________________ ARPOO LENTOKENTÄN MAALLE ____________________
 def etsimaanlentokenttä(maa):
-    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.maakoodi and (type = 'large_airport' or type = 'medium_airport') order by rand() limit 1"
+    sql = "select airport.name from airport, maat where nimi = '" + str(maa) +"' and airport.iso_country = maat.iso_country and (type = 'large_airport' or type = 'medium_airport') order by rand() limit 1"
     #print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
@@ -273,7 +279,7 @@ yhteys = mysql.connector.connect(
          port= 3306,
          database='flight_game',
          user='root',
-         password='m!näk00d44n',
+         password='Suzu',
          autocommit=True
          )
 
