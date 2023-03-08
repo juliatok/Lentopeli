@@ -124,7 +124,7 @@ INSERT INTO vastaukset (paikka_id, kysymys, oikein, väärin1, väärin2)
 	(24,"Minä vuonna Kypros itsenäistyi?","1960","1965","1970"),
 	(25,"Mikä on Maltan pääkaupunki?","Valletta","Tirana","Nikosia"),
 	(25,"Lähin valtio Maltaa on:","Italia","Kreikka","Tunisia"),
-	(26,"Mikä maa sijaitsee Sveitsin länsipuolella?","Ranska","Balgia","Saksa"),
+	(26,"Mikä maa sijaitsee Sveitsin länsipuolella?","Ranska","Belgia","Saksa"),
 	(26,"Mikä taidesuuntaus sai alkunsa Sveitsissä","Dadaismi","Ekspressionismi","Surrealismi"),
 	(27,"Mikä on Tsekin valuutta?","Tsekin koruna","Euro","Frangi"),
 	(27,"Milloin Tsekin jääkiekkomaajoukkue voitti viimeksi maailmanmestaruuden?","2010","2007","1994"),
