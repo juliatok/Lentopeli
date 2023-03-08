@@ -135,6 +135,7 @@ def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN 
             valinta3 = [n, kenttä[0]]
 
     valinta = input("-> ").upper()
+    
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
@@ -381,7 +382,7 @@ def end():
     while valinta != "" and valinta != "0":
         print("Virheellinen syöte!")
         valinta = input("")
-        
+
     return valinta
 
 
