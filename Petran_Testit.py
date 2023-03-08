@@ -50,7 +50,7 @@ def leaderboard():
     tulos = kursori.fetchall()
     print("Tässä on Top 5 tulosta:")
     for rivi in tulos:
-        print(rivi[0], "-", rivi[1])
+        print(rivi[0], "-", rivi[1],"Pistettä")
     return
 
 
