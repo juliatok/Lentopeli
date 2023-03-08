@@ -7,6 +7,7 @@ import random
 
 
 def mainmenu():
+
     print("____________________________________________________________________")
     print("  ")
     print("  ███████╗██╗░░░██╗██████╗░░█████╗░░█████╗░██████╗░██████╗░░█████╗░")
@@ -23,12 +24,15 @@ def mainmenu():
     print("  ░░░╚═╝░░░╚═╝╚══════╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝╚═════╝░╚═╝░░╚═╝")
     print("            ALOITA PELI - ENTER            SULJE PELI - 0")
     print("____________________________________________________________________")
+
     syöte = input()
+
     while syöte != "" and syöte != "0":
         print("Virheellinen syöte!")
         print("Paina enter aloittaaksesi pelin.")
         print("Paina 0 lopettaaksesi ohjelman")
         syöte = input("-> ")
+
     return syöte
 
 
@@ -36,10 +40,12 @@ def mainmenu():
 
 
 def käyttäjänimivalinta():
+
     print("   • Anna käyttäjänimesi •")
     print(" ")
     käyttäjänimi = input("-> ")
     print("____________________________________________________________________")
+
     return käyttäjänimi
 
 
@@ -47,6 +53,7 @@ def käyttäjänimivalinta():
 
 
 def etsimaanlentokenttä(maa):
+
     sql = "select airport.name, airport.id from airport, maat where nimi = '" + str(
         maa) + "' and airport.iso_country = maat.iso_country and type = 'large_airport' order by rand() limit 1"
     # print(sql)
@@ -55,8 +62,10 @@ def etsimaanlentokenttä(maa):
     tulos = kursori.fetchall()
     length = len(tulos)
     print(tulos)
+
     if length != 0:
         return tulos
+
     else:  # JOS MAALLA EI OLE ISOA LENTOKENTTÄÄ, SE HAKEE KESKIKOKOISEN
         sql = "select airport.name, airport.id from airport, maat where nimi = '" + str(
             maa) + "' and airport.iso_country = maat.iso_country and type = 'medium_airport' order by rand() limit 1"
@@ -72,8 +81,10 @@ def etsimaanlentokenttä(maa):
 
 
 def arvokolmemaata():
+
     kerrat = 0
     arvotutmaat = []
+
     while kerrat != 3:
         numero = random.randint(1, 30)
         sql = "select Nimi from maat where ID = '" + str(numero) + "'"
@@ -81,12 +92,14 @@ def arvokolmemaata():
         kursori = yhteys.cursor()
         kursori.execute(sql)
         tulos = kursori.fetchall()
+
         for n in tulos:
             if n not in käydytmaat:
                 if n not in arvotutmaat:
                     # print(n)
                     arvotutmaat.append(n)
                     kerrat = kerrat + 1
+
     return arvotutmaat
 
 
@@ -94,11 +107,13 @@ def arvokolmemaata():
 
 
 def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN LENTÄÄ SEURAAVAKSI
+
     arvotutmaat = arvokolmemaata()
     kerrat = 1
     print("  ")
     print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse minne haluaisit lentää! •")
     print("  ")
+
     for n in arvotutmaat:
         if kerrat == 1:
             kenttä = etsimaanlentokenttä(''.join(n))
@@ -118,6 +133,7 @@ def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN 
             print("C.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
             kerrat = kerrat + 1
             valinta3 = [n, kenttä[0]]
+
     valinta = input("-> ").upper()
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
@@ -134,6 +150,7 @@ def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN 
         print("   • Lennetään lentokentälle", ''.join(map(str, valinta1[1])), ''.join(valinta3[0]), "•")
         valinta = valinta3
     print("____________________________________________________________________")
+
     return valinta
 
 
@@ -141,6 +158,7 @@ def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN 
 
 
 def kotimaanvalinta(käyttäjänimi):
+
     print("  ")
     print("Tervetuloa pelaamaan Eurooppa Tietovisa -peliä", käyttäjänimi, "!")
     print(" ")
@@ -150,8 +168,10 @@ def kotimaanvalinta(käyttäjänimi):
     print("Aloita seikkailusi valitsemalla kotimaasi, josta aloitat pelin.")
     print("____________________________________________________________________")
     print("  ")
+
     arvotutmaat = arvokolmemaata()
     kerrat = 1
+
     for n in arvotutmaat:
         if kerrat == 1:
             print("A.", ', '.join(n))
@@ -165,7 +185,9 @@ def kotimaanvalinta(käyttäjänimi):
             print("C.", ', '.join(n))
             kerrat = kerrat + 1
             valinta3 = n
+
     valinta = input("-> ").upper()
+
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
@@ -181,6 +203,7 @@ def kotimaanvalinta(käyttäjänimi):
         print("   • Kotimaaksi on valittu", ', '.join(valinta3), "•")
         valinta = valinta3
     print("__________________________________________________________________")
+
     return valinta
 
 
@@ -219,7 +242,7 @@ def hae_id(sijainti):
 
 
 def kysymys_pelaajalle(id, lennot):
-    
+
     sql = "select ID, kysymys from vastaukset where paikka_id = '" + str(id) + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -292,6 +315,7 @@ def anna_vastaus(vastaukset):
 
 
 def pisteidenlasku(pelaajan_vastaus, pisteet):
+
     if pelaajan_vastaus == 0:
         print("Oikein! Sait 80 pistettä!")
         pisteet = pisteet + 80
@@ -299,6 +323,7 @@ def pisteidenlasku(pelaajan_vastaus, pisteet):
         print("Väärin meni! Menetit 20 pistettä.")
         pisteet = pisteet - 20
     print(f"Sinulla on nyt yhteensä {pisteet} pistettä.")
+
     return pisteet
 
 
@@ -341,6 +366,7 @@ def laske_valimatka(koordinaatit1, koordinaatit2):
 
 
 def end():
+
     print("  ")
     print("   Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
     print("   Olet taas kotimaassasi", ', '.join(kotimaa))
@@ -349,10 +375,13 @@ def end():
     print(f"   Lensit pelin aikana yhteensä {kuljettu_matka:.0f} km")
     print("")
     print("     PELAA UUDELLEEN - ENTER            SULJE PELI - 0")
+
     valinta = input("")
+
     while valinta != "" and valinta != "0":
         print("Virheellinen syöte!")
         valinta = input("")
+        
     return valinta
 
 
