@@ -61,7 +61,6 @@ def etsimaanlentokenttä(maa):
     kursori.execute(sql)
     tulos = kursori.fetchall()
     length = len(tulos)
-    print(tulos)
 
     if length != 0:
         return tulos
@@ -73,7 +72,7 @@ def etsimaanlentokenttä(maa):
         kursori = yhteys.cursor()
         kursori.execute(sql)
         tulos = kursori.fetchall()
-        print(tulos)
+
         return tulos
 
 
@@ -111,31 +110,31 @@ def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN 
     arvotutmaat = arvokolmemaata()
     kerrat = 1
     print("  ")
-    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse minne haluaisit lentää! •")
+    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse minne haluaisit lentää seuraavaksi! •")
     print("  ")
 
     for n in arvotutmaat:
         if kerrat == 1:
             kenttä = etsimaanlentokenttä(''.join(n))
-            print(kenttä)
+            # print(kenttä)
             print("A.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
             kerrat = kerrat + 1
             valinta1 = [n, kenttä[0]]
         elif kerrat == 2:
             kenttä = etsimaanlentokenttä(''.join(n))
-            print(kenttä)
+            # print(kenttä)
             print("B.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
             kerrat = kerrat + 1
             valinta2 = [n, kenttä[0]]
         else:
             kenttä = etsimaanlentokenttä(''.join(n))
-            print(kenttä)
+            # print(kenttä)
             print("C.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
             kerrat = kerrat + 1
             valinta3 = [n, kenttä[0]]
 
     valinta = input("-> ").upper()
-    
+
     while valinta != "A" and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
@@ -153,7 +152,6 @@ def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN 
     print("____________________________________________________________________")
 
     return valinta
-
 
 # ______________________ KOTIMAAN VALINTA ______________________
 
@@ -216,7 +214,7 @@ def hae_kotikentta(valittu_kotimaa):
     count = 0
 
     while count <= 1:
-        sql = "select airport.name from airport, maat " \
+        sql = "select airport.id from airport, maat " \
               "where nimi = ""'" + str(valittu_kotimaa) + "' " \
                 "and airport.iso_country = maat.iso_country order by rand() limit 1"
         cursor = yhteys.cursor()
@@ -333,8 +331,9 @@ def pisteidenlasku(pelaajan_vastaus, pisteet):
 
 def edellinen_nykyinen_lentokentta(kentat_lista):
 
-    edellinen = kentat_lista[-2][0]
-    nykyinen = kentat_lista[-1][0]
+
+    edellinen = kentat_lista[-2]
+    nykyinen = kentat_lista[-1]
 
     return edellinen, nykyinen
 
@@ -342,9 +341,9 @@ def edellinen_nykyinen_lentokentta(kentat_lista):
 # HAKEE LENTOKENTÄN KOORDINAATIT:
 
 
-def hae_koordinaatit(airport_name):
+def hae_koordinaatit(airport_id):
 
-    sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
+    sql = "select latitude_deg, longitude_deg from airport where id = '" + str(airport_id) + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -357,7 +356,6 @@ def hae_koordinaatit(airport_name):
 
 def laske_valimatka(koordinaatit1, koordinaatit2):
 
-    print(f"Koordinaatit: {koordinaatit1}, {koordinaatit2}")
     valimatka = geopy.distance.geodesic(koordinaatit1, koordinaatit2).km
 
     return valimatka
@@ -370,7 +368,7 @@ def end():
 
     print("  ")
     print("   Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
-    print("   Olet taas kotimaassasi", ', '.join(kotimaa))
+    print("   Olet nyt palannut takaisin kotimaahasi", ', '.join(kotimaa))
     print("   Sait", pisteet, "pistettä!")
     print("  ")
     print(f"   Lensit pelin aikana yhteensä {kuljettu_matka:.0f} km")
@@ -420,14 +418,14 @@ while syöte != "0":
     kotimaa = kotimaanvalinta(käyttäjänimi)  # PALAUTTAA KOTIMAAN
     kotimaa_lentokentta = hae_kotikentta(kotimaa[0])
     käydytmaat.append(kotimaa)
-    kaydyt_lentokentat.append(kotimaa_lentokentta)
+    kaydyt_lentokentat.append(kotimaa_lentokentta[0])
     nykyinenmaa = kotimaa
 
     while lennot < 11:
 
         nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
         käydytmaat.append(nykyinenmaa[0])
-        kaydyt_lentokentat.append(nykyinenmaa[1])
+        kaydyt_lentokentat.append(nykyinenmaa[1][1])
 
         id = hae_id(nykyinenmaa[0])
         kysymys_id = kysymys_pelaajalle(id, lennot)
