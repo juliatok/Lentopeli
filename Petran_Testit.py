@@ -35,19 +35,20 @@ def tuloksenlisäys(käyttäjänimi,pisteet):
         top5.append(points)
     if pisteet > top5[-1]:"""
     sql = "insert into käyttäjä(nimi,pisteet) values ('" + käyttäjänimi + "', '" + pisteet + "')"
-    print(sql)
+    #print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
     yhteys.commit()
-    print("Tervetuloa", käyttäjänimi)
+    #print("Tervetuloa", käyttäjänimi)
     return
 
 def leaderboard():
-    sql = "select nimi, pisteet from käyttäjä order by pisteet desc"
-    print(sql)
+    sql = "select nimi, pisteet from käyttäjä order by pisteet desc limit 5"
+    #print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
     tulos = kursori.fetchall()
+    print("Tässä on Top 5 tulosta:")
     for rivi in tulos:
         print(rivi[0], "-", rivi[1])
     return
