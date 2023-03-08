@@ -27,7 +27,7 @@ def username():
 
 
 # -- Tietokantaan lisäys --
-def top5(käyttäjänimi,pisteet):
+def tuloksenlisäys(käyttäjänimi,pisteet):
     """top5 = []
     haku = "select pisteet from käyttäjä"
     for rivi in haku:
@@ -42,6 +42,16 @@ def top5(käyttäjänimi,pisteet):
     print("Tervetuloa", käyttäjänimi)
     return
 
+def leaderboard():
+    sql = "select nimi, pisteet from käyttäjä order by pisteet desc"
+    print(sql)
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    tulos = kursori.fetchall()
+    for rivi in tulos:
+        print(rivi[0], "-", rivi[1])
+    return
+
 
 yhteys = mysql.connector.connect(
          host='127.0.0.1',
@@ -54,7 +64,8 @@ yhteys = mysql.connector.connect(
 
 käyttäjänimi = username()           # KÄYTTÄJÄNIMEN KYSYNTÄ JA SEN LISÄYS TIETOKANTAAN
 pisteet = input("Anna pisteet:")
-top5lista = top5(käyttäjänimi,pisteet)
+tuloksenlisäys(käyttäjänimi,pisteet)
+leaderboard()
 
 '''icao = "EFHK"
 paikka1 = paikka(icao)
