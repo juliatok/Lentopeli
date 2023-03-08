@@ -54,7 +54,7 @@ def etsimaanlentokenttä(maa):
     kursori.execute(sql)
     tulos = kursori.fetchall()
     length = len(tulos)
-    # print(tulos)
+    print(tulos)
     if length != 0:
         return tulos
     else:  # JOS MAALLA EI OLE ISOA LENTOKENTTÄÄ, SE HAKEE KESKIKOKOISEN
@@ -64,6 +64,7 @@ def etsimaanlentokenttä(maa):
         kursori = yhteys.cursor()
         kursori.execute(sql)
         tulos = kursori.fetchall()
+        print(tulos)
         return tulos
 
 
@@ -187,6 +188,7 @@ def kotimaanvalinta(käyttäjänimi):
 
 
 def hae_kotikentta(valittu_kotimaa):
+
     count = 0
 
     while count <= 1:
@@ -204,6 +206,7 @@ def hae_kotikentta(valittu_kotimaa):
 
 
 def hae_id(sijainti):
+
     sql = "select ID from maat where Nimi = '" + sijainti[0] + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -216,6 +219,7 @@ def hae_id(sijainti):
 
 
 def kysymys_pelaajalle(id, lennot):
+    
     sql = "select ID, kysymys from vastaukset where paikka_id = '" + str(id) + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -235,6 +239,7 @@ def kysymys_pelaajalle(id, lennot):
 
 
 def vastaus_vaihtoehdot(id):
+
     sql = "select oikein, väärin1, väärin2 from vastaukset where ID = '" + str(id) + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -262,6 +267,7 @@ def vastaus_vaihtoehdot(id):
 
 
 def anna_vastaus(vastaukset):
+
     pelaajan_syote = input("-> ").upper()
 
     while pelaajan_syote != "A" and pelaajan_syote != "B" and pelaajan_syote != "C":
@@ -300,6 +306,7 @@ def pisteidenlasku(pelaajan_vastaus, pisteet):
 
 
 def edellinen_nykyinen_lentokentta(kentat_lista):
+
     edellinen = kentat_lista[-2][0]
     nykyinen = kentat_lista[-1][0]
 
@@ -310,6 +317,7 @@ def edellinen_nykyinen_lentokentta(kentat_lista):
 
 
 def hae_koordinaatit(airport_name):
+
     sql = "select latitude_deg, longitude_deg from airport where name = '" + airport_name + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
@@ -322,9 +330,9 @@ def hae_koordinaatit(airport_name):
 
 
 def laske_valimatka(koordinaatit1, koordinaatit2):
+
     print(f"Koordinaatit: {koordinaatit1}, {koordinaatit2}")
     valimatka = geopy.distance.geodesic(koordinaatit1, koordinaatit2).km
-    print(f"Lensit välimatkalla {valimatka:.0f} km")
 
     return valimatka
 
@@ -338,7 +346,7 @@ def end():
     print("   Olet taas kotimaassasi", ', '.join(kotimaa))
     print("   Sait", pisteet, "pistettä!")
     print("  ")
-    print(f"   Lensit koko pelin aikana yhteensä {kuljettu_matka:.0f} km")
+    print(f"   Lensit pelin aikana yhteensä {kuljettu_matka:.0f} km")
     print("")
     print("     PELAA UUDELLEEN - ENTER            SULJE PELI - 0")
     valinta = input("")
@@ -357,7 +365,7 @@ yhteys = mysql.connector.connect(
     port=3306,
     database='flight_game',
     user='root',
-    password='Suzu',
+    password='m!näk00d44n',
     autocommit=True
 )
 
@@ -372,6 +380,7 @@ while syöte != "0":
     kaydyt_lentokentat = []
 
     if valinta == "0":
+
         break
 
     käyttäjänimi = käyttäjänimivalinta()  # PALAUTTAA KÄYTTÄJÄNIMEN
@@ -385,6 +394,7 @@ while syöte != "0":
     nykyinenmaa = kotimaa
 
     while lennot < 11:
+
         nykyinenmaa = arvolentokenttä(nykyinenmaa)  # PALAUTTAA NYKYISEN MAAN
         käydytmaat.append(nykyinenmaa[0])
         kaydyt_lentokentat.append(nykyinenmaa[1])
@@ -407,4 +417,5 @@ while syöte != "0":
     valinta = end()
 
     if valinta == "0":
+
         break
