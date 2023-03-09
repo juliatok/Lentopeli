@@ -35,10 +35,10 @@ CREATE TABLE käyttäjä(
 );
 
 INSERT INTO käyttäjä (Nimi, pisteet)
-	VALUES ("Petra", 0),
-	("Mia", 0),
-	("Wilma", 0),
-	("Julia", 0);
+	VALUES ("Petra", 440),
+	("Mia", 360),
+	("Wilma", 230),
+	("Julia", 600);
 
 	INSERT INTO maat (ID, Nimi, iso_country)
     VALUES (1, "Iso-Britannia", "GB"),
@@ -79,7 +79,7 @@ INSERT INTO vastaukset (paikka_id, kysymys, oikein, väärin1, väärin2)
 	(1,"Mikä yhtye ei ole kotoisin Britanniasta?","Guns N' Roses","Queen","The Rolling Stones"),
 	(2,"Mikä on Ranskan korkein vuori?","Mont Blanc","Mount Everest","Monte Bianco"),
 	(2,"Kuinka korkea on Eiffel-torni?","324 metriä","264 metriä","412 metriä"),
-	(3,"Missä kaupungissa siaitsee kuuluisa kalteva torni?","Pisa","Napoli","Torino"),
+	(3,"Missä kaupungissa sijaitsee kuuluisa kalteva torni?","Pisa","Napoli","Torino"),
 	(3,"Mikä on Italian suurin saari?","Sisilia","Sardinia","Elba"),
 	(4,"Missä kaupungissa on suurin väkiluku?","Madrid","Barcelona","Valencia"),
 	(4,"Mikä on Espanjan suurin saari?","Mallorca","Teneriffa","Gran Canaria"),
@@ -134,6 +134,4 @@ INSERT INTO vastaukset (paikka_id, kysymys, oikein, väärin1, väärin2)
 	(29,"Kuka on Serbian nykyinen presidentti?","Alexsandar Vucic","Novak Dokovic","Ana Brnabic"),
 	(30,"Kuinka korkea on Moldovan korkein kohta?","420 metriä","640 metriä","310 metriä"),
 	(30,"Mikä on Moldovan virallinen kieli?","Romanian kieli","Moldovan kieli","Unkarin kieli"); 
-	
-
 	
