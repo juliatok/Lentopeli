@@ -81,7 +81,7 @@ def arvolentokenttä(nykyinenmaa):
     arvotutmaat = arvokolmemaata()
     kerrat = 1
     print("  ")
-    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse maa jossa haluat vierailla! •")
+    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse maa, jossa haluat vierailla! •")
     print("  ")
     for n in arvotutmaat:
         if kerrat == 1:
@@ -164,6 +164,7 @@ def kotimaanvalinta(käyttäjänimi):
     print("__________________________________________________________________")
     return valinta
 
+
 # HAE RANDOM LENTOKENTTÄ KOTIMAASTA (matkan pituuden laskuun - ei näy pelissä):
 def hae_kotikentta(valittu_kotimaa):
 
@@ -190,6 +191,7 @@ def hae_id(sijainti):
 
     return result[0][0]
 
+
 # VALITUN MAAN KYSYMYS PELAAJALLE:
 def kysymys_pelaajalle(id, lennot):
 
@@ -207,18 +209,19 @@ def kysymys_pelaajalle(id, lennot):
 
     return kysyttava_kysymys[0]
 
+
 # VASTAUSVAIHTOEHDOT PELAAJALLE:
 def vastaus_vaihtoehdot(id):
 
     sql = "select oikein, väärin1, väärin2 from vastaukset where ID = '" + str(id) + "'"
     cursor = yhteys.cursor()
     cursor.execute(sql)
-    ret = list(cursor.fetchall()[0])  # tekee listan tuplesta
+    result = list(cursor.fetchall()[0])  # tekee listan tuplesta
 
     vastausvaihtoehdot = []
-    vastausvaihtoehdot.append([ret[0], "oikein"])
-    vastausvaihtoehdot.append([ret[1], "väärin"])
-    vastausvaihtoehdot.append([ret[2], "väärin"])
+    vastausvaihtoehdot.append([result[0], "oikein"])
+    vastausvaihtoehdot.append([result[1], "väärin"])
+    vastausvaihtoehdot.append([result[2], "väärin"])
 
     random.shuffle(vastausvaihtoehdot)
 
@@ -231,6 +234,7 @@ def vastaus_vaihtoehdot(id):
     print("")
 
     return vastausvaihtoehdot
+
 
 # PELAAJAN VASTAUS (palauttaa 0 jos vastaus oikein, -1 jos väärin):
 def anna_vastaus(vastaukset):
@@ -251,6 +255,7 @@ def anna_vastaus(vastaukset):
                 return 0
             else:
                 return -1
+
     print("____________________________________________________________________")
 
 
@@ -265,6 +270,7 @@ def pisteidenlasku(pelaajan_vastaus, pisteet):
     print(f"   Sinulla on nyt yhteensä {pisteet} pistettä.")
     print("____________________________________________________________________")
     return pisteet
+
 
 # HAKEE EDELLISEN JA NYKYISEN LENTOKENTÄN:
 def edellinen_nykyinen_lentokentta(kentat_lista):
@@ -335,13 +341,15 @@ def end():
     return valinta
 
 # ______________________ PÄÄOHJELMA ______________________
+
 syöte = 1
+
 yhteys = mysql.connector.connect(
     host='localhost',
     port=3306,
     database='flight_game',
     user='root',
-    password='assiponi',
+    password='m!näk00d44n',
     autocommit=True
 )
 
