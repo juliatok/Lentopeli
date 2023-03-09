@@ -2,12 +2,8 @@ import mysql.connector
 import geopy.distance
 import random
 
-
 # ______________________ ALOITUSRUUTU ______________________
-
-
 def mainmenu():
-
     print("____________________________________________________________________")
     print("  ")
     print("  ███████╗██╗░░░██╗██████╗░░█████╗░░█████╗░██████╗░██████╗░░█████╗░")
@@ -22,9 +18,10 @@ def mainmenu():
     print("  ░░░██║░░░██║██╔══╝░░░░░██║░░░██║░░██║░╚████╔╝░██║░╚═══██╗██╔══██║")
     print("  ░░░██║░░░██║███████╗░░░██║░░░╚█████╔╝░░╚██╔╝░░██║██████╔╝██║░░██║")
     print("  ░░░╚═╝░░░╚═╝╚══════╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝╚═════╝░╚═╝░░╚═╝")
-    print("            ALOITA PELI - ENTER            SULJE PELI - 0")
+    print("                   by Petra, Wilma, Mia & Julia")
+    print(" ")
+    print("        ALOITA PELI - ENTER                SULJE PELI - 0")
     print("____________________________________________________________________")
-
     syöte = input()
 
     while syöte != "" and syöte != "0":
@@ -32,145 +29,110 @@ def mainmenu():
         print("Paina enter aloittaaksesi pelin.")
         print("Paina 0 lopettaaksesi ohjelman")
         syöte = input("-> ")
-
     return syöte
 
-
 # ______________________ KÄYTTÄJÄNIMI ______________________
-
-
 def käyttäjänimivalinta():
-
     print("   • Anna käyttäjänimesi •")
     print(" ")
     käyttäjänimi = input("-> ")
     print("____________________________________________________________________")
-
     return käyttäjänimi
 
-
 # ____________________ ARPOO LENTOKENTÄN MAALLE ____________________
-
-
 def etsimaanlentokenttä(maa):
-
     sql = "select airport.name, airport.id from airport, maat where nimi = '" + str(
         maa) + "' and airport.iso_country = maat.iso_country and type = 'large_airport' order by rand() limit 1"
-    # print(sql)
     kursori = yhteys.cursor()
     kursori.execute(sql)
     tulos = kursori.fetchall()
     length = len(tulos)
-
     if length != 0:
         return tulos
 
-    else:  # JOS MAALLA EI OLE ISOA LENTOKENTTÄÄ, SE HAKEE KESKIKOKOISEN
+    else:
         sql = "select airport.name, airport.id from airport, maat where nimi = '" + str(
             maa) + "' and airport.iso_country = maat.iso_country and type = 'medium_airport' order by rand() limit 1"
         # print(sql)
         kursori = yhteys.cursor()
         kursori.execute(sql)
         tulos = kursori.fetchall()
-
         return tulos
 
-
 # ______________________ ARPOO 3 MAATA ______________________
-
-
 def arvokolmemaata():
-
     kerrat = 0
     arvotutmaat = []
-
     while kerrat != 3:
         numero = random.randint(1, 30)
         sql = "select Nimi from maat where ID = '" + str(numero) + "'"
-        # print(sql)
         kursori = yhteys.cursor()
         kursori.execute(sql)
         tulos = kursori.fetchall()
-
         for n in tulos:
             if n not in käydytmaat:
                 if n not in arvotutmaat:
-                    # print(n)
                     arvotutmaat.append(n)
                     kerrat = kerrat + 1
-
     return arvotutmaat
 
-
 # _________________ VALITSEE SEURAAVAN MAAN ______________________
-
-
-def arvolentokenttä(nykyinenmaa):  # ARPOO KOLME MAATA JA LENTOKENTTÄÄ MIHIN LENTÄÄ SEURAAVAKSI
-
+def arvolentokenttä(nykyinenmaa):
     arvotutmaat = arvokolmemaata()
     kerrat = 1
     print("  ")
-    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse minne haluaisit lentää seuraavaksi! •")
+    print("   • Olet maassa", ''.join(nykyinenmaa[0]), "- Valitse maa jossa haluat vierailla! •")
     print("  ")
-
     for n in arvotutmaat:
         if kerrat == 1:
             kenttä = etsimaanlentokenttä(''.join(n))
-            # print(kenttä)
-            print("A.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
+            print("A.", ''.join(n), "-", ''.join(map(str, kenttä[0]))[:-4])
             kerrat = kerrat + 1
             valinta1 = [n, kenttä[0]]
         elif kerrat == 2:
             kenttä = etsimaanlentokenttä(''.join(n))
-            # print(kenttä)
-            print("B.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
+            print("B.", ''.join(n), "-", ''.join(map(str, kenttä[0]))[:-4])
             kerrat = kerrat + 1
             valinta2 = [n, kenttä[0]]
         else:
             kenttä = etsimaanlentokenttä(''.join(n))
-            # print(kenttä)
-            print("C.", ''.join(n), "-", ''.join(map(str, kenttä[0])))
+            print("C.", ''.join(n), "-", ''.join(map(str, kenttä[0]))[:-4])
             kerrat = kerrat + 1
             valinta3 = [n, kenttä[0]]
-
     valinta = input("-> ").upper()
-
-    while valinta != "A" and valinta != "B" and valinta != "C":
+    while valinta != "A" and valinta != ''.join(arvotutmaat[0]).upper() and valinta != ''.join(arvotutmaat[1]).upper() and valinta != ''.join(arvotutmaat[2]).upper() and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
     print("____________________________________________________________________")
-    print("  ")
-    if valinta == "A":
-        print("   • Lennetään lentokentälle", ''.join(map(str, valinta1[1])), ''.join(valinta1[0]), "•")
+    print(" ")
+    if valinta == "A" or valinta == ''.join(arvotutmaat[0]).upper():
+        print("   • Lennetään lentokentälle", ''.join(map(str, valinta1[1]))[:-4],"-", ''.join(valinta1[0]), "•")
         valinta = valinta1
-    elif valinta == "B":
-        print("   • Lennetään lentokentälle", ''.join(map(str, valinta1[1])), ''.join(valinta2[0]), "•")
+    elif valinta == "B" or valinta == ''.join(arvotutmaat[1]).upper():
+        print("   • Lennetään lentokentälle", ''.join(map(str, valinta2[1]))[:-4],"-", ''.join(valinta2[0]), "•")
         valinta = valinta2
     else:
-        print("   • Lennetään lentokentälle", ''.join(map(str, valinta1[1])), ''.join(valinta3[0]), "•")
+        print("   • Lennetään lentokentälle", ''.join(map(str, valinta3[1]))[:-4],"-", ''.join(valinta3[0]), "•")
         valinta = valinta3
     print("____________________________________________________________________")
-
     return valinta
 
 # ______________________ KOTIMAAN VALINTA ______________________
-
-
 def kotimaanvalinta(käyttäjänimi):
-
     print("  ")
-    print("Tervetuloa pelaamaan Eurooppa Tietovisa -peliä", käyttäjänimi, "!")
+    print("Tervetuloa pelaamaan Eurooppa Tietovisa -peliä", käyttäjänimi + "!")
     print(" ")
     print("Tässä pelissä kierrät läpi kymmenen Euroopan maata")
     print("vastaten kussakin maassa maahan liittyvään tietovisa-kysymykseen.")
     print(" ")
+    print("Vastaa kysymyksiin valitsemalla joko A, B tai C. Saat lisää pisteitä")
+    print("oikeista vastauksista ja miinuspisteitä vääristä. Mieti siis tarkkaan!")
+    print(" ")
     print("Aloita seikkailusi valitsemalla kotimaasi, josta aloitat pelin.")
     print("____________________________________________________________________")
     print("  ")
-
     arvotutmaat = arvokolmemaata()
     kerrat = 1
-
     for n in arvotutmaat:
         if kerrat == 1:
             print("A.", ', '.join(n))
@@ -184,31 +146,25 @@ def kotimaanvalinta(käyttäjänimi):
             print("C.", ', '.join(n))
             kerrat = kerrat + 1
             valinta3 = n
-
     valinta = input("-> ").upper()
-
-    while valinta != "A" and valinta != "B" and valinta != "C":
+    while valinta != "A" and valinta != ', '.join(valinta1).upper() and valinta != ', '.join(valinta2).upper() and valinta != ', '.join(valinta3).upper() and valinta != "B" and valinta != "C":
         print("Virheellinen syöte! Valitse A, B tai C!")
         valinta = input("-> ").upper()
     print("____________________________________________________________________")
     print("  ")
-    if valinta == "A":
+    if valinta == "A" or valinta == ', '.join(valinta1).upper():
         print("   • Kotimaaksi on valittu", ', '.join(valinta1), "•")
         valinta = valinta1
-    elif valinta == "B":
+    elif valinta == "B" or valinta == ', '.join(valinta2).upper():
         print("   • Kotimaaksi on valittu", ', '.join(valinta2), "•")
         valinta = valinta2
     else:
         print("   • Kotimaaksi on valittu", ', '.join(valinta3), "•")
         valinta = valinta3
     print("__________________________________________________________________")
-
     return valinta
 
-
 # HAE RANDOM LENTOKENTTÄ KOTIMAASTA (matkan pituuden laskuun - ei näy pelissä):
-
-
 def hae_kotikentta(valittu_kotimaa):
 
     count = 0
@@ -225,8 +181,6 @@ def hae_kotikentta(valittu_kotimaa):
 
 
 # HAE VALITUN MAAN ID:
-
-
 def hae_id(sijainti):
 
     sql = "select ID from maat where Nimi = '" + sijainti[0] + "'"
@@ -236,10 +190,7 @@ def hae_id(sijainti):
 
     return result[0][0]
 
-
 # VALITUN MAAN KYSYMYS PELAAJALLE:
-
-
 def kysymys_pelaajalle(id, lennot):
 
     sql = "select ID, kysymys from vastaukset where paikka_id = '" + str(id) + "'"
@@ -256,10 +207,7 @@ def kysymys_pelaajalle(id, lennot):
 
     return kysyttava_kysymys[0]
 
-
 # VASTAUSVAIHTOEHDOT PELAAJALLE:
-
-
 def vastaus_vaihtoehdot(id):
 
     sql = "select oikein, väärin1, väärin2 from vastaukset where ID = '" + str(id) + "'"
@@ -284,10 +232,7 @@ def vastaus_vaihtoehdot(id):
 
     return vastausvaihtoehdot
 
-
 # PELAAJAN VASTAUS (palauttaa 0 jos vastaus oikein, -1 jos väärin):
-
-
 def anna_vastaus(vastaukset):
 
     pelaajan_syote = input("-> ").upper()
@@ -306,31 +251,23 @@ def anna_vastaus(vastaukset):
                 return 0
             else:
                 return -1
-
     print("____________________________________________________________________")
 
 
 # ______________________ PISTEFUNKTIO ______________________
-
-
 def pisteidenlasku(pelaajan_vastaus, pisteet):
-
     if pelaajan_vastaus == 0:
-        print("Oikein! Sait 80 pistettä!")
+        print("   Oikein! Sait 80 pistettä!")
         pisteet = pisteet + 80
     else:
-        print("Väärin meni! Menetit 20 pistettä.")
+        print("   Väärin meni! Menetit 20 pistettä.")
         pisteet = pisteet - 20
-    print(f"Sinulla on nyt yhteensä {pisteet} pistettä.")
-
+    print(f"   Sinulla on nyt yhteensä {pisteet} pistettä.")
+    print("____________________________________________________________________")
     return pisteet
 
-
 # HAKEE EDELLISEN JA NYKYISEN LENTOKENTÄN:
-
-
 def edellinen_nykyinen_lentokentta(kentat_lista):
-
 
     edellinen = kentat_lista[-2]
     nykyinen = kentat_lista[-1]
@@ -339,8 +276,6 @@ def edellinen_nykyinen_lentokentta(kentat_lista):
 
 
 # HAKEE LENTOKENTÄN KOORDINAATIT:
-
-
 def hae_koordinaatit(airport_id):
 
     sql = "select latitude_deg, longitude_deg from airport where id = '" + str(airport_id) + "'"
@@ -352,27 +287,43 @@ def hae_koordinaatit(airport_id):
 
 
 # LASKEE EDELLISEN JA NYKYISEN LENTOKENTÄN VÄLIMATKAN:
-
-
 def laske_valimatka(koordinaatit1, koordinaatit2):
 
     valimatka = geopy.distance.geodesic(koordinaatit1, koordinaatit2).km
 
     return valimatka
 
+# PETRAN JUTUT
+
+def tuloksenlisäys(käyttäjänimi,pisteet):
+        sql = "insert into käyttäjä(nimi,pisteet) values ('" + käyttäjänimi + "', '" + str(pisteet) + "')"
+        kursori = yhteys.cursor()
+        kursori.execute(sql)
+        yhteys.commit()
+
+def leaderboard():
+    print("    • TOP 5 TULOSTA •")
+    sql = "select nimi, pisteet from käyttäjä order by pisteet desc limit 5"
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    tulos = kursori.fetchall()
+    numero = 1
+    for rivi in tulos:
+        print("  ",str(numero) + ".",rivi[0], "-", rivi[1], "pistettä")
+        numero = numero + 1
+    print(" ")
+    return
 
 # ______________________ LOPPURUUTU ______________________
-
-
 def end():
 
     print("  ")
     print("   Onneksi olkoon", käyttäjänimi, "läpäisit pelin!")
     print("   Olet nyt palannut takaisin kotimaahasi", ', '.join(kotimaa))
-    print("   Sait", pisteet, "pistettä!")
-    print("  ")
+    print("   Sait yhteensä", pisteet, "pistettä!")
     print(f"   Lensit pelin aikana yhteensä {kuljettu_matka:.0f} km")
     print("")
+    leaderboard()
     print("     PELAA UUDELLEEN - ENTER            SULJE PELI - 0")
 
     valinta = input("")
@@ -383,17 +334,14 @@ def end():
 
     return valinta
 
-
 # ______________________ PÄÄOHJELMA ______________________
-
 syöte = 1
-
 yhteys = mysql.connector.connect(
     host='localhost',
     port=3306,
     database='flight_game',
     user='root',
-    password='m!näk00d44n',
+    password='assiponi',
     autocommit=True
 )
 
@@ -408,7 +356,6 @@ while syöte != "0":
     kaydyt_lentokentat = []
 
     if valinta == "0":
-
         break
 
     käyttäjänimi = käyttäjänimivalinta()  # PALAUTTAA KÄYTTÄJÄNIMEN
@@ -442,8 +389,8 @@ while syöte != "0":
         lennot = lennot + 1
         kuljettu_matka += valimatka
 
+    tuloksenlisäys(käyttäjänimi, pisteet)
     valinta = end()
 
     if valinta == "0":
-
         break
